@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&family=Space+Mono:wght@700&display=swap');
+@import "tailwindcss";
+
+:root {
+  --orange: #FF5C00;
+  --violet: #7B61FF;
+  --lime: #BFFF0A;
+  --rose: #FF3CAC;
+  --sky: #00C2FF;
+  --cream: #FFF8F0;
+  --dark: #1A1A2E;
+  --white: #ffffff;
+}
+
+@theme inline {
+  --color-background: var(--cream);
+  --color-foreground: var(--dark);
+  --color-orange: var(--orange);
+  --color-violet: var(--violet);
+  --color-lime: var(--lime);
+  --color-rose: var(--rose);
+  --color-sky: var(--sky);
+  --color-cream: var(--cream);
+  --color-dark: var(--dark);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--cream);
+  color: var(--dark);
+  font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
+}
+
+::selection {
+  background: var(--violet);
+  color: var(--white);
+}
+
+.font-heading {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.font-mono {
+  font-family: 'Space Mono', monospace;
+}
+
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.spin-slow {
+  animation: spin-slow 20s linear infinite;
+}
+
+@keyframes bounce-gentle {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.bounce-gentle {
+  animation: bounce-gentle 2s ease-in-out infinite;
+}
