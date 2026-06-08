@@ -259,7 +259,7 @@ export default function Home() {
               </h2>
               <div className="text-white/60 text-base leading-[1.9] space-y-5">
                 <p>
-                  J&apos;ai créé <strong className="text-white">Nomad&apos;s</strong> en 2016, une marketplace bien-être que j&apos;ai dirigée seule pendant 9 ans avant de la céder en 2025. Plus de 900 praticien·ne·s sont passé·e·s par la plateforme, dans 6 villes en France. J&apos;étais seule aux commandes, sans équipe technique. Alors j&apos;ai tout appris sur le tas, et j&apos;ai tout automatisé. <strong className="text-white">Ce qui devait être une solution de survie est devenu ma vraie compétence.</strong>
+                  J&apos;ai créé <strong className="text-white">Nomad&apos;s</strong> en 2016, une marketplace bien-être que j&apos;ai dirigée seule pendant 9 ans avant de la céder en 2025. Plus de 900 praticien·ne·s sont passé·e·s par la plateforme, dans 6 villes en France. J&apos;étais seule aux commandes, sans équipe technique. Alors j&apos;ai tout appris sur le tas, et j&apos;ai tout automatisé. <strong className="text-white">J&apos;ai automatisé par nécessité, puis par conviction : c&apos;est devenu mon métier.</strong>
                 </p>
                 <p>
                   Depuis un an, je suis <strong className="text-white">Product Builder freelance</strong> en no-code et IA. Aujourd&apos;hui formée au <strong className="text-white">Product Management (Noé, 2026)</strong>, je travaille comme <strong className="text-white">PM freelance pour Le Labo de Clairie</strong> et je cherche un poste de PM en startup ou scale-up où je peux concevoir, prioriser et garder les mains dans le produit.
@@ -399,7 +399,7 @@ export default function Home() {
           <motion.div variants={fadeUp} className="mb-20">
             <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/60 font-bold mb-6">Approche produit</div>
             <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight leading-[1.1] max-w-4xl">
-              De la vision au produit qui tourne<span className="text-dark/40">.</span>
+              Je pars du besoin utilisateur, je tranche avec la data, je livre<span className="text-dark/40">.</span>
             </h2>
           </motion.div>
 
@@ -409,7 +409,7 @@ export default function Home() {
               <h3 className="font-heading text-lg font-bold mb-5">Discovery en continu</h3>
               <div className="text-white/70 text-base leading-relaxed space-y-4">
                 <p>Chez Nomad&apos;s, mes praticien·ne·s étaient mes client·e·s. <strong className="text-white">Leur avis était constamment demandé et implémenté</strong> : tests de features, sondages, interviews utilisateur, votes sur les fonctionnalités.</p>
-                <p>Régulièrement dans l&apos;année, des <strong className="text-white">hackathons internes et réunions</strong> pour réfléchir ensemble à partir de leurs vrais besoins.</p>
+                <p>Régulièrement dans l&apos;année, des <strong className="text-white">ateliers de co-construction et sessions de feedback</strong> pour réfléchir ensemble à partir de leurs vrais besoins.</p>
                 <p>Ce ping-pong continu avec les utilisateurs donne des insights auxquels on n&apos;aurait jamais pensé. C&apos;est aussi ce qui m&apos;a amenée à <strong className="text-white">fermer 2 villes non rentables</strong> : contre-intuitif, mais c&apos;est la décision qui a rendu la boîte rentable.</p>
               </div>
             </div>
@@ -423,9 +423,9 @@ export default function Home() {
             </div>
             <div className="bg-orange p-8">
               <div className="font-mono text-xs uppercase tracking-[0.2em] text-dark/60 font-bold mb-4">03</div>
-              <h3 className="font-heading text-lg font-bold mb-5">Data-centered, user-driven</h3>
+              <h3 className="font-heading text-lg font-bold mb-5">La data tranche, l&apos;utilisateur décide</h3>
               <div className="text-white/70 text-base leading-relaxed space-y-4">
-                <p>Ce qui me motive dans le produit, c&apos;est d&apos;avoir un <strong className="text-white">impact fort avec des petites choses bien pensées</strong>, en partant toujours des <strong className="text-white">utilisateurs</strong> et en validant par les <strong className="text-white">données</strong>.</p>
+                <p>Ce qui me motive dans le produit, c&apos;est <strong className="text-white">le bon petit changement au bon endroit, mesuré dans les KPIs</strong>, en partant toujours des <strong className="text-white">utilisateurs</strong> et en validant par les <strong className="text-white">données</strong>.</p>
                 <p>Chez Nomad&apos;s, le système Mads a automatisé 100% de la facturation et libéré 1 journée par mois. Au Labo de Clairie, une stack no-code a permis de passer de 40 à 1 200 choristes sans recruter.</p>
                 <p>Chaque décision part d&apos;un <strong className="text-white">besoin utilisateur</strong>, <strong className="text-white">se mesure dans les KPIs, et s&apos;ajuste en continu</strong>. C&apos;est cette boucle qui crée le vrai impact.</p>
               </div>
@@ -603,7 +603,7 @@ export default function Home() {
       {/* 12. Footer */}
       <footer className="py-6 px-6 md:px-12 flex justify-between items-center text-[11px] text-dark/30 font-mono">
         <span>© 2026 Alexandra Philibert</span>
-        <span>Construit en Next.js + Claude Code</span>
+        <span>Codé maison · build IA-assisté</span>
       </footer>
     </>
   );
