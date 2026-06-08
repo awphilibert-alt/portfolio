@@ -30,13 +30,13 @@ export default function DawghtersPage() {
           DAWghters<span className="text-sky">.</span>
         </motion.h1>
         <motion.p variants={fadeUp} className="text-xl text-dark/50 leading-relaxed mb-12 max-w-2xl">
-          Site vitrine pour une association parisienne dediee a la MAO et a la creation musicale pour les femmes et minorites de genre.
+          Site vitrine pour une association parisienne dédiée à la MAO et à la création musicale pour les femmes et minorités de genre.
         </motion.p>
 
         {/* Screenshot placeholder */}
         <motion.div variants={fadeUp} className="bg-white rounded-3xl border border-dark/5 overflow-hidden mb-16">
           <div className="aspect-video bg-gradient-to-br from-sky/5 to-violet/5 flex items-center justify-center">
-            <span className="text-dark/20 font-mono text-sm">Screenshot a venir</span>
+            <span className="text-dark/20 font-mono text-sm">Screenshot à venir</span>
           </div>
         </motion.div>
 
@@ -45,15 +45,15 @@ export default function DawghtersPage() {
           <div>
             <h2 className="font-heading text-lg font-bold mb-4">Le projet</h2>
             <div className="text-dark/60 leading-relaxed space-y-4">
-              <p>DAWghters est une association parisienne qui cree des espaces pour les femmes et minorites de genre dans la production musicale (MAO).</p>
-              <p>Le site comprend un organigramme des membres (avec fiches detaillees : photo, style musical, artistes preferes, DAW), un agenda des evenements, une page ressources avec des recommandations de professionnelles, et un espace admin protege.</p>
-              <p>L&apos;admin permet a chaque responsable de gerer les membres, evenements et ressources de facon autonome avec son propre acces.</p>
+              <p>DAWghters est une association parisienne qui crée des espaces pour les femmes et minorités de genre dans la production musicale (MAO).</p>
+              <p>Le site comprend un organigramme des membres (avec fiches détaillées : photo, style musical, artistes préférés, DAW), un agenda des événements, une page ressources avec des recommandations de professionnelles, et un espace admin protégé.</p>
+              <p>L&apos;admin permet à chaque responsable de gérer les membres, événements et ressources de façon autonome avec son propre accès.</p>
             </div>
           </div>
           <div>
             <h2 className="font-heading text-lg font-bold mb-4">Stack technique</h2>
             <ul className="space-y-3">
-              {["Next.js + TypeScript", "Tailwind CSS", "Supabase (auth + base de donnees)", "Admin multi-comptes", "CRUD membres, evenements, ressources", "Responsive mobile-first", "SEO-friendly"].map((item) => (
+              {["Next.js + TypeScript", "Tailwind CSS", "Supabase (auth + base de données)", "Admin multi-comptes", "CRUD membres, événements, ressources", "Responsive mobile-first", "SEO-friendly"].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-dark/60 text-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-sky flex-shrink-0 mt-2" />
                   {item}
@@ -67,7 +67,7 @@ export default function DawghtersPage() {
         <motion.div variants={fadeUp}>
           <h2 className="font-heading text-lg font-bold mb-6">Pages du site</h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {["Accueil", "Organigramme", "Agenda", "Ressources", "Rejoindre l'asso", "Nous soutenir", "Contact", "Admin (protege)"].map((page) => (
+            {["Accueil", "Organigramme", "Agenda", "Ressources", "Rejoindre l'asso", "Nous soutenir", "Contact", "Admin (protégé)"].map((page) => (
               <div key={page} className="bg-white rounded-xl px-4 py-3 text-sm text-dark/60">{page}</div>
             ))}
           </div>

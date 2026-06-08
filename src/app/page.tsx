@@ -1,317 +1,460 @@
 "use client";
 
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
+import { useState, useEffect, useCallback } from "react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
   visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" as const } },
 };
 
+const slideRight = {
+  hidden: { opacity: 0, x: -60 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" as const } },
+};
+
 const stagger = {
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: { transition: { staggerChildren: 0.1 } },
 };
 
 const projects = [
   {
     title: "Le Labo de Clairie",
     slug: "labo-de-clairie",
-    tag: "Produit · No-code",
-    description: "Scaling d'une chorale en ligne de 40 à 1 200 membres. Stack no-code complète (Tally, Airtable, Stripe, Make), 400K€ de paiements traités, 2 ETP remplacés par l'automatisation.",
-    color: "bg-violet",
+    tag: "Produit · No-code · PM",
+    description: "Scaling d'une chorale de 40 à 1 200 membres, 400K€ traités, 2 ETP automatisés. Puis PM de la nouvelle plateforme : V1 en ligne, 500 préinscrits, objectif 10 000 choristes.",
+    color: "violet",
   },
   {
     title: "Light Geek",
     slug: "light-geek",
-    tag: "Site vitrine · No-code",
-    description: "Site de mon studio conçu et construit en pur HTML/CSS/JS. Landing page, formulaire de candidature Tally, analytics Umami, SEO complet, déploiement Hostinger.",
-    color: "bg-orange",
+    tag: "Studio · No-code & IA",
+    description: "Mon studio freelance. 9+ projets livrés : sites, apps, agents IA, CRM custom, automatisations.",
+    color: "orange",
   },
   {
     title: "La Maison du Bonheur",
     slug: "maison-du-bonheur",
     tag: "App · React",
-    description: "App collaborative de planification de vacances entre familles. Gestion de chambres, planning, budget partagé avec algorithme type Tricount, paiement Stripe.",
-    color: "bg-rose",
+    description: "Planification de vacances collaborative. Budget type Tricount, binômes cuisine, paiement Stripe.",
+    color: "rose",
   },
   {
     title: "DAWghters",
     slug: "dawghters",
     tag: "Site · Next.js + Supabase",
-    description: "Site vitrine et back-office pour une association de MAO dédiée aux femmes et minorités de genre. Admin multi-comptes, CRUD complet, agenda, ressources.",
-    color: "bg-sky",
+    description: "Association de MAO pour femmes et minorités de genre. Admin multi-comptes, CRUD, agenda.",
+    color: "sky",
+  },
+];
+
+const cases = [
+  {
+    title: "Système Mads",
+    slug: "mads",
+    tag: "Pricing · Modèle économique",
+    description: "Refonte complète du modèle de pricing B2C en 2019. Automatisation, encaissement à l'avance, métrique d'engagement claire. Stable 7 ans.",
+    color: "violet",
+  },
+  {
+    title: "Fermeture Marseille / Aix",
+    slug: "marseille-fermeture",
+    tag: "Data-informed · Décision difficile",
+    description: "12 mois de suivi terrain, 3 KPIs trackés, fermeture de 2 villes non rentables en 2024. Contribution directe au retour à la rentabilité.",
+    color: "rose",
+  },
+  {
+    title: "Le Labo de Clairie · Nouvelle plateforme",
+    slug: "le-labo-de-clairie",
+    tag: "Mission PM en cours",
+    description: "D'abord Product Builder (stack no-code, 40 → 1 200 choristes), puis PM de la nouvelle plateforme. Backlog priorisé pour un lancement sous pression, V1 déjà en ligne (500 préinscrits), stakeholder management CEO/dev.",
+    color: "orange",
   },
 ];
 
 const skills = [
-  { category: "Product", items: ["Discovery & User Research", "Roadmap & Priorisation (RICE)", "Marketplace / two-sided", "Data-informed", "Pricing & Monétisation", "UX/UI · Figma"], color: "text-orange" },
-  { category: "Build", items: ["Vibe Coding", "Next.js · React", "Tailwind CSS", "Supabase", "Vercel"], color: "text-violet" },
-  { category: "No-code & IA", items: ["Make · Zapier · n8n", "Airtable · Notion", "Tally · Stripe", "LLM en workflows", "HTML/CSS/JS"], color: "text-rose" },
-  { category: "Business", items: ["Stratégie produit", "Stakeholder management", "Gestion de projet · Jira", "Entrepreneuriat (9 ans CEO)", "Trilingue FR/DE/EN"], color: "text-sky" },
+  { category: "Product", items: ["Discovery & User Research", "Priorisation RICE / MoSCoW", "Marketplace two-sided", "Data-informed · OKR", "Pricing & Monétisation"], color: "orange" },
+  { category: "Build", items: ["Next.js · React", "Tailwind CSS", "Supabase · Vercel", "Build IA-assisté · Claude Code", "HTML/CSS/JS"], color: "violet" },
+  { category: "No-code & IA", items: ["Make · Zapier · n8n", "Airtable · Notion (expert)", "Tally · Stripe", "Agents IA · RAG · Dust", "Prompt engineering"], color: "rose" },
+  { category: "Business", items: ["Stratégie produit", "Stakeholder management", "Entrepreneuriat (9 ans CEO)", "Folk · HubSpot · CRM custom", "Trilingue FR/DE/EN"], color: "sky" },
 ];
 
-const timeline = [
-  { year: "2014–16", label: "Traductrice freelance & Dior", detail: "Localisation web FR/DE/EN, documentaires Arte, puis clientèle internationale chez Dior Parfums", color: "bg-orange" },
-  { year: "2016", label: "Création de Nomad's", detail: "Marketplace bien-être : 180 praticien·ne·s, 4 villes, clients B2B (BNP, L'Oréal, Doctolib)", color: "bg-violet" },
-  { year: "2019", label: "Modèle de pricing par crédits", detail: "Système de Mads prépayés, facturation 100% automatisée, +460K€ générés pour la communauté", color: "bg-rose" },
-  { year: "2025", label: "Exit — cession de Nomad's", detail: "Retour à la rentabilité, cession totale de la SAS à un repreneur", color: "bg-sky" },
-  { year: "2026", label: "Light Geek + Formation PM", detail: "Studio no-code & IA + formation Product Manager chez Noé", color: "bg-orange" },
+const experience = [
+  { year: "2026 · présent", label: "Product Manager freelance", company: "Le Labo de Clairie", detail: "Nouvelle plateforme · V1 en ligne, objectif 10 000 choristes", color: "text-orange" },
+  { year: "2025 · 2026", label: "Product Builder freelance", company: "Light Geek Studio", detail: "Studio no-code & IA, 9+ projets livrés", color: "text-violet" },
+  { year: "2016 · 2025", label: "Fondatrice & CEO", company: "Nomad's", detail: "Marketplace bien-être à deux faces, 200 praticien·ne·s actif·ve·s, 900+ sur 9 ans, jusqu'à 6 villes (4 à la cession), cession à une entrepreneure en 2025", color: "text-rose" },
+  { year: "2016", label: "Customer Experience", company: "Dior Parfums", detail: "Marchés UK, DACH, France · 3 langues", color: "text-sky" },
+  { year: "2014 · 2016", label: "Traductrice freelance", company: "Arte", detail: "Transcription et traduction de rushs documentaires", color: "text-orange" },
 ];
+
+const formation = [
+  { year: "2026", label: "Product Manager & AI for PM", company: "Noé" },
+  { year: "2010 · 2014", label: "Philologie française, Économie, Histoire de l'art", company: "Freie Universität Berlin" },
+];
+
+const rotatingWords = ["construis", "no-code", "livre", "scale", "prototype"];
+const wordColors = ["text-violet", "text-rose", "text-sky", "text-lime", "text-violet"];
+
+function RotatingWord() {
+  const [index, setIndex] = useState(0);
+  const [displayText, setDisplayText] = useState("");
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const currentWord = rotatingWords[index];
+  const tick = useCallback(() => {
+    if (!isDeleting) {
+      setDisplayText(currentWord.substring(0, displayText.length + 1));
+      if (displayText.length + 1 === currentWord.length) {
+        setTimeout(() => setIsDeleting(true), 1800);
+        return;
+      }
+    } else {
+      setDisplayText(currentWord.substring(0, displayText.length - 1));
+      if (displayText.length - 1 === 0) {
+        setIsDeleting(false);
+        setIndex((prev) => (prev + 1) % rotatingWords.length);
+        return;
+      }
+    }
+  }, [displayText, isDeleting, currentWord]);
+
+  useEffect(() => {
+    const speed = isDeleting ? 50 : 80;
+    const timer = setTimeout(tick, speed);
+    return () => clearTimeout(timer);
+  }, [tick, isDeleting]);
+
+  return (
+    <span className="relative">
+      <AnimatePresence mode="wait">
+        <motion.span
+          key={index}
+          className={`${wordColors[index]}`}
+          initial={{ opacity: 1 }}
+          animate={{ opacity: 1 }}
+        >
+          {displayText}
+        </motion.span>
+      </AnimatePresence>
+      <span className="animate-pulse text-dark/40">|</span>
+    </span>
+  );
+}
+
+function MobileNav() {
+  const [open, setOpen] = useState(false);
+  return (
+    <>
+      <button onClick={() => setOpen(!open)} className="md:hidden flex flex-col gap-1.5 w-8 h-8 items-center justify-center" aria-label="Menu">
+        <span className={`block w-5 h-0.5 bg-dark transition-all ${open ? "rotate-45 translate-y-1" : ""}`} />
+        <span className={`block w-5 h-0.5 bg-dark transition-all ${open ? "opacity-0" : ""}`} />
+        <span className={`block w-5 h-0.5 bg-dark transition-all ${open ? "-rotate-45 -translate-y-1" : ""}`} />
+      </button>
+      {open && (
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="absolute top-14 left-0 right-0 bg-cream/95 backdrop-blur-md border-b border-dark/10 px-6 py-6 flex flex-col gap-5 md:hidden"
+        >
+          <a href="#parcours" onClick={() => setOpen(false)} className="text-sky font-mono text-sm uppercase tracking-widest">Parcours</a>
+          <a href="#nomads" onClick={() => setOpen(false)} className="text-orange font-mono text-sm uppercase tracking-widest">Nomad&apos;s</a>
+          <Link href="/cases" onClick={() => setOpen(false)} className="text-lime font-mono text-sm uppercase tracking-widest">Cases PM</Link>
+          <Link href="/formation-noe" onClick={() => setOpen(false)} className="text-violet font-mono text-sm uppercase tracking-widest">Formation</Link>
+          <a href="#contact" onClick={() => setOpen(false)} className="text-rose font-mono text-sm uppercase tracking-widest">Contact</a>
+        </motion.div>
+      )}
+    </>
+  );
+}
+
+// Tailwind safelist for dynamic color classes
+const _dependencies = "hover:border-orange hover:border-violet hover:border-rose hover:border-sky hover:border-lime text-orange text-violet text-rose text-sky text-lime bg-orange bg-violet bg-rose bg-sky bg-lime group-hover:text-orange group-hover:text-violet group-hover:text-rose group-hover:text-sky group-hover:text-lime border-orange/30 border-violet/30 border-rose/30 border-sky/30 border-lime/30";
 
 export default function Home() {
   return (
     <>
-      {/* NAV */}
-      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 bg-cream/90 backdrop-blur-md border-b border-dark/5">
-        <a href="#" className="font-heading text-xl font-extrabold tracking-tight">
-          A<span className="text-orange">.</span>P<span className="text-violet">.</span>
+      <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-14 bg-cream/80 backdrop-blur-md">
+        <a href="#" className="font-heading text-lg font-bold tracking-tight">
+          Alexandra<span className="text-orange">.</span>
         </a>
-        <div className="flex gap-6 text-sm font-semibold">
-          <a href="#parcours" className="text-dark/40 hover:text-orange transition-colors">Parcours</a>
-          <a href="#projets" className="text-dark/40 hover:text-violet transition-colors">Projets</a>
-          <a href="#approche" className="text-dark/40 hover:text-rose transition-colors">Approche</a>
-          <a href="#contact" className="text-dark/40 hover:text-sky transition-colors">Contact</a>
+        <div className="hidden md:flex gap-8 text-xs font-mono uppercase tracking-widest">
+          <a href="#parcours" className="text-sky hover:text-dark transition-colors">Parcours</a>
+          <a href="#nomads" className="text-orange hover:text-dark transition-colors">Nomad&apos;s</a>
+          <Link href="/cases" className="text-lime hover:text-dark transition-colors">Cases PM</Link>
+          <Link href="/formation-noe" className="text-violet hover:text-dark transition-colors">Formation</Link>
+          <a href="#contact" className="text-rose hover:text-dark transition-colors">Contact</a>
         </div>
+        <MobileNav />
       </nav>
 
-      {/* HERO */}
-      <section className="min-h-screen flex items-center justify-center relative px-6 overflow-hidden">
-        <div className="absolute top-20 -right-20 w-72 h-72 bg-orange/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-20 -left-20 w-80 h-80 bg-violet/20 rounded-full blur-3xl" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-rose/10 rounded-full blur-3xl" />
-
-        <motion.div className="relative z-10 max-w-3xl mx-auto text-center pt-20" initial="hidden" animate="visible" variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-flex items-center gap-2 bg-dark text-white text-xs font-semibold px-4 py-2 rounded-full mb-10">
-            <span className="w-2 h-2 rounded-full bg-lime inline-block bounce-gentle" />
+      {/* 1. Hero */}
+      <section className="px-6 md:px-12 pt-24 pb-20 relative">
+        <motion.div initial="hidden" animate="visible" variants={stagger} className="max-w-6xl">
+          <motion.p variants={slideRight} className="font-mono text-xs uppercase tracking-[0.2em] text-sky font-bold mb-6">
             Product Manager & Builder no-code / IA
-          </motion.div>
+          </motion.p>
 
-          <motion.h1 variants={fadeUp} className="font-heading text-5xl md:text-7xl font-bold tracking-tight leading-[1.05] mb-8">
-            Je{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">conçois</span>
-              <span className="absolute bottom-1 left-0 right-0 h-3 bg-orange/30 -rotate-1 rounded" />
-            </span>
-            {" "}et je{" "}
-            <span className="relative inline-block">
-              <span className="relative z-10">construis</span>
-              <span className="absolute bottom-1 left-0 right-0 h-3 bg-violet/30 rotate-1 rounded" />
-            </span>
-            {" "}des produits<span className="text-rose">.</span>
+          <motion.h1 variants={fadeUp} className="font-heading text-[clamp(3rem,9vw,8rem)] font-bold tracking-tight leading-[0.95] mb-0">
+            Je <span className="text-orange">conçois</span>,
+          </motion.h1>
+          <motion.h1 variants={fadeUp} className="font-heading text-[clamp(3rem,9vw,8rem)] font-bold tracking-tight leading-[0.95] mb-0">
+            et je <RotatingWord />
+          </motion.h1>
+          <motion.h1 variants={fadeUp} className="font-heading text-[clamp(3rem,9vw,8rem)] font-bold tracking-tight leading-[0.95] mb-8">
+            des produits<span className="text-orange">.</span>
           </motion.h1>
 
-          <motion.p variants={fadeUp} className="text-lg md:text-xl text-dark/50 max-w-xl mx-auto mb-12 leading-relaxed">
-            Ex-CEO 9 ans (marketplace, exit 2025), en formation PM chez Noé, fondatrice de Light Geek.
-            Je transforme des idées en produits qui tournent, en no-code et en IA.
+          <motion.p variants={fadeUp} className="font-mono text-xs uppercase tracking-[0.2em] text-dark/50 font-bold mb-10">
+            Ex-CEO 9 ans · exit 2025 <span className="text-dark/20 mx-1">—</span> Formation PM · Noé 2026 <span className="text-dark/20 mx-1">—</span> Trilingue FR/DE/EN
           </motion.p>
 
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="#projets" className="inline-flex items-center gap-2 bg-dark text-white font-bold px-8 py-4 rounded-full hover:-translate-y-1 hover:shadow-xl transition-all text-sm">
-              Voir mes projets →
+          <motion.div variants={slideRight} className="flex gap-3">
+            <a href="#contact" className="bg-orange text-white font-mono text-xs uppercase tracking-wider px-6 py-3 hover:bg-dark transition-colors">
+              Contact
             </a>
-            <a href="#contact" className="inline-flex items-center gap-2 border-2 border-dark/10 text-dark/60 font-semibold px-8 py-4 rounded-full hover:border-violet hover:text-violet transition-all text-sm">
-              Me contacter
+            <a href="#projets" className="border-2 border-dark text-dark font-mono text-xs uppercase tracking-wider px-6 py-3 hover:bg-dark hover:text-white transition-colors">
+              Projets
             </a>
           </motion.div>
         </motion.div>
+
+        <motion.div
+          initial={{ scaleX: 0 }}
+          animate={{ scaleX: 1 }}
+          transition={{ duration: 1.2, delay: 0.5, ease: "easeOut" as const }}
+          className="absolute bottom-0 left-0 right-0 h-[3px] bg-sky origin-left"
+        />
       </section>
 
-      {/* MON HISTOIRE */}
-      <section className="py-24 px-6 md:px-12">
-        <motion.div className="max-w-3xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-orange/10 text-orange text-xs font-bold px-3 py-1.5 rounded-full mb-6">Mon histoire</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-12">
-            Le fil rouge<span className="text-rose">.</span>
-          </motion.h2>
-          <motion.div variants={fadeUp} className="text-lg leading-[1.9] text-dark/60 space-y-6">
-            <p>
-              Mon parcours n&apos;a rien de linéaire. Études de philo et d&apos;histoire de l&apos;art à Berlin, traduction de documentaires pour Arte, clientèle internationale chez Dior. Rien ne me prédestinait à monter une boîte tech.
-            </p>
-            <p>
-              Et puis en 2016, j&apos;ai créé <strong className="text-dark font-semibold">Nomad&apos;s</strong>, une marketplace bien-être. 180 praticien·ne·s, 4 villes, des clients comme BNP, L&apos;Oréal, Doctolib. Le truc, c&apos;est que j&apos;étais seule. Pas de CTO, pas de salarié. Alors j&apos;ai tout automatisé : l&apos;onboarding, la facturation, le matching, le support. <strong className="text-dark font-semibold">Ce qui devait être une solution de survie est devenu ma vraie compétence.</strong>
-            </p>
-            <p>
-              J&apos;ai inventé un modèle de pricing par crédits prépayés, piloté mes KPIs comme un produit tech, pris des décisions data-informed (comme fermer 2 villes non rentables pour revenir dans le vert). En 2025, j&apos;ai revendu la boîte après 9 ans.
-            </p>
-            <p>
-              Aujourd&apos;hui, le fil rouge est toujours le même : <strong className="text-dark font-semibold">partir d&apos;un vrai problème, construire la solution la plus simple qui marche, et itérer.</strong> Je le fais avec <strong className="text-dark font-semibold">Light Geek</strong> (mon studio no-code & IA), et je structure tout ça avec une <strong className="text-dark font-semibold">formation Product Manager chez Noé</strong>.
-            </p>
-            <p>
-              Trilingue FR/DE/EN, basée à Paris. Passionnée d&apos;escalade, de musique et de jeux vidéo.
-            </p>
-          </motion.div>
-        </motion.div>
-      </section>
-
-      {/* NOMAD'S — ÉTUDE DE CAS */}
-      <section className="py-24 px-6 md:px-12 bg-dark text-white rounded-[40px] mx-4 md:mx-8 mb-4">
-        <motion.div className="max-w-4xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-white/10 text-orange text-xs font-bold px-3 py-1.5 rounded-full mb-6">Étude de cas</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-4">
-            Nomad&apos;s<span className="text-orange">.</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-white/40 text-lg leading-relaxed mb-16 max-w-2xl">
-            Marketplace bien-être à deux faces que j&apos;ai fondée, conçue et dirigée pendant 9 ans. De l&apos;idée à l&apos;exit.
-          </motion.p>
-
-          {/* Le problème */}
-          <motion.div variants={fadeUp} className="mb-16">
-            <h3 className="font-heading text-lg font-bold text-orange mb-4">Le problème</h3>
-            <p className="text-white/50 leading-relaxed max-w-2xl">
-              Les praticien·ne·s bien-être (massage, yoga, sophrologie...) travaillaient de façon isolée, sans visibilité, avec des outils dispersés. Côté client, impossible de trouver un·e praticien·ne de confiance facilement. Il n&apos;existait pas de plateforme qui connectait les deux mondes de façon simple et fiable.
-            </p>
-          </motion.div>
-
-          {/* Ce que j'ai construit */}
-          <motion.div variants={fadeUp} className="mb-16">
-            <h3 className="font-heading text-lg font-bold text-violet mb-4">Ce que j&apos;ai construit</h3>
-            <div className="grid md:grid-cols-2 gap-6">
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <div className="text-sm font-bold text-white/70 mb-2">Plateforme marketplace</div>
-                <p className="text-white/40 text-sm leading-relaxed">Inscription, profils, matching praticien/client, système de réservation, paiement intégré. Le tout orchestré et automatisé sans aucun salarié technique.</p>
+      {/* 1b. About me */}
+      <section id="about" className="py-32 px-6 md:px-12 bg-dark text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="md:grid md:grid-cols-12 gap-12">
+            <div className="col-span-4 mb-12 md:mb-0">
+              <div className="aspect-[3/4] bg-white/5 border-2 border-white/10 flex items-center justify-center mb-6">
+                <span className="text-white/20 font-mono text-xs">Photo à venir</span>
               </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <div className="text-sm font-bold text-white/70 mb-2">Modèle de pricing innovant</div>
-                <p className="text-white/40 text-sm leading-relaxed">En 2019, j&apos;ai remplacé un système de commissions opaque par des crédits prépayés (&quot;Mads&quot;). Résultat : facturation 100% automatisée, 1 journée de calcul manuel libérée par mois, encaissement à l&apos;avance.</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <div className="text-sm font-bold text-white/70 mb-2">Automatisation totale</div>
-                <p className="text-white/40 text-sm leading-relaxed">Onboarding, facturation, matching, support, relances : tout était automatisé. C&apos;est comme ça que j&apos;ai pu gérer 180 prestataires dans 4 villes, seule.</p>
-              </div>
-              <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                <div className="text-sm font-bold text-white/70 mb-2">Clients B2B</div>
-                <p className="text-white/40 text-sm leading-relaxed">Développement d&apos;une offre entreprise : BNP Paribas, L&apos;Oréal, Doctolib, Joone, BETC. Plus de 60 partenaires B2C.</p>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { emoji: "🧗‍♀️", label: "Escalade" },
+                  { emoji: "🎵", label: "Musique (je joue)" },
+                  { emoji: "🏃‍♀️", label: "Course à pied" },
+                  { emoji: "🎮", label: "Jeux vidéo" },
+                  { emoji: "🔮", label: "Tarot" },
+                  { emoji: "✍️", label: "Newsletter Substack" },
+                  { emoji: "🇩🇪", label: "18 ans à Berlin" },
+                ].map((item) => (
+                  <span key={item.label} className="inline-flex items-center gap-1.5 border border-white/10 px-3 py-1.5 text-xs text-white/40">
+                    <span>{item.emoji}</span>
+                    {item.label}
+                  </span>
+                ))}
               </div>
             </div>
-          </motion.div>
-
-          {/* Décisions produit */}
-          <motion.div variants={fadeUp} className="mb-16">
-            <h3 className="font-heading text-lg font-bold text-rose mb-4">Décisions clés</h3>
-            <div className="space-y-4 max-w-2xl">
-              <div className="flex gap-4 items-start">
-                <div className="w-2 h-2 rounded-full bg-rose flex-shrink-0 mt-2" />
-                <p className="text-white/50 text-sm leading-relaxed"><strong className="text-white/70">Fermeture de 2 villes non rentables (2024)</strong> — Décision data-informed difficile mais qui a contribué au retour à la rentabilité (exercice 2023 déficitaire → 2024 bénéficiaire).</p>
+            <div className="col-span-7 col-start-6">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-orange font-bold mb-4">About me</div>
+              <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight mb-8">
+                Alexandra Philibert<span className="text-orange">.</span>
+              </h2>
+              <div className="text-white/60 text-base leading-[1.9] space-y-5">
+                <p>
+                  J&apos;ai créé <strong className="text-white">Nomad&apos;s</strong> en 2016, une marketplace bien-être que j&apos;ai dirigée seule pendant 9 ans avant de la céder en 2025. Plus de 900 praticien·ne·s sont passé·e·s par la plateforme, dans 6 villes en France. J&apos;étais seule aux commandes, sans équipe technique. Alors j&apos;ai tout appris sur le tas, et j&apos;ai tout automatisé. <strong className="text-white">Ce qui devait être une solution de survie est devenu ma vraie compétence.</strong>
+                </p>
+                <p>
+                  Depuis un an, je suis <strong className="text-white">Product Builder freelance</strong> en no-code et IA. Aujourd&apos;hui formée au <strong className="text-white">Product Management (Noé, 2026)</strong>, je travaille comme <strong className="text-white">PM freelance pour Le Labo de Clairie</strong> et je cherche un poste de PM en startup ou scale-up où je peux concevoir, prioriser et garder les mains dans le produit.
+                </p>
               </div>
-              <div className="flex gap-4 items-start">
-                <div className="w-2 h-2 rounded-full bg-rose flex-shrink-0 mt-2" />
-                <p className="text-white/50 text-sm leading-relaxed"><strong className="text-white/70">Pivot du modèle de pricing (2019)</strong> — Passage des commissions aux crédits prépayés. Plus de transparence, trésorerie stabilisée, adoption immédiate par les praticien·ne·s.</p>
-              </div>
-              <div className="flex gap-4 items-start">
-                <div className="w-2 h-2 rounded-full bg-rose flex-shrink-0 mt-2" />
-                <p className="text-white/50 text-sm leading-relaxed"><strong className="text-white/70">Coordination sans hiérarchie</strong> — 1 responsable régionale, 3 assistant·e·s terrain, 180 freelances. Pas de management classique, mais un produit et des process assez solides pour que tout tourne.</p>
-              </div>
-            </div>
-          </motion.div>
-
-          {/* Résultats */}
-          <motion.div variants={fadeUp}>
-            <h3 className="font-heading text-lg font-bold text-lime mb-6">Résultats</h3>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { value: "180", label: "Praticien·ne·s" },
-                { value: "4 villes", label: "Couverture" },
-                { value: "460K€", label: "Revenus communauté (2024)" },
-                { value: "Exit 2025", label: "Cession totale" },
-              ].map((stat) => (
-                <div key={stat.label} className="bg-white/5 border border-white/10 rounded-2xl p-5 text-center">
-                  <div className="font-heading text-xl font-bold text-white mb-1">{stat.value}</div>
-                  <div className="text-white/30 text-xs">{stat.label}</div>
-                </div>
-              ))}
             </div>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* PARCOURS */}
-      <section id="parcours" className="py-24 px-6 md:px-12 bg-dark text-white rounded-[40px] mx-4 md:mx-8 mb-4">
-        <motion.div className="max-w-4xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-white/10 text-lime text-xs font-bold px-3 py-1.5 rounded-full mb-6">Parcours</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-16">
-            10 ans condensés<span className="text-orange">.</span>
-          </motion.h2>
-          <div className="grid md:grid-cols-5 gap-6">
-            {timeline.map((item) => (
-              <motion.div key={item.year} variants={fadeUp} className="relative">
-                <div className={`w-3 h-3 rounded-full ${item.color} mb-4`} />
-                <div className="font-mono text-xs font-bold text-white/40 mb-2">{item.year}</div>
-                <div className="font-heading text-lg font-bold mb-2">{item.label}</div>
-                <div className="text-white/40 text-sm leading-relaxed">{item.detail}</div>
+      {/* 2. Parcours */}
+      <section id="parcours" className="py-32 px-6 md:px-12 bg-dark text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="md:grid md:grid-cols-12 gap-8">
+            <div className="col-span-3 mb-12 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-3">Parcours</div>
+              <div className="w-12 h-1 bg-lime" />
+            </div>
+            <div className="col-span-8 col-start-5">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/30 font-bold mb-6">Expérience</div>
+              <div className="space-y-0 mb-16">
+                {experience.map((item) => (
+                  <motion.div key={item.year} variants={fadeUp} className="flex gap-6 py-5 border-b border-white/5">
+                    <div className="font-mono text-xs text-white/25 w-24 flex-shrink-0 pt-0.5">{item.year}</div>
+                    <div>
+                      <div className="flex flex-wrap items-baseline gap-2">
+                        <span className="font-heading text-base font-bold">{item.label}</span>
+                        {item.company && <span className={`text-sm ${item.color}`}>{item.company}</span>}
+                      </div>
+                      <div className="text-white/40 text-sm mt-1">{item.detail}</div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/30 font-bold mb-6">Formation</div>
+              <div className="space-y-0 mb-16">
+                {formation.map((item) => (
+                  <motion.div key={item.year} variants={fadeUp} className="flex gap-6 py-5 border-b border-white/5">
+                    <div className="font-mono text-xs text-white/25 w-24 flex-shrink-0 pt-0.5">{item.year}</div>
+                    <div>
+                      <span className="font-heading text-base font-bold">{item.label}</span>
+                      {item.company && <span className="text-sm text-violet ml-2">{item.company}</span>}
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <motion.div variants={fadeUp} className="flex flex-wrap gap-4">
+                <a href="/cv-alexandra-philibert.pdf" className="bg-white text-dark font-mono text-xs uppercase tracking-wider px-6 py-3 hover:bg-lime transition-colors font-bold">
+                  Télécharger mon CV ↓
+                </a>
+                <a href="https://www.linkedin.com/in/alexandra-philibert-016680113/" target="_blank" rel="noopener noreferrer" className="border border-white/20 text-white/50 font-mono text-xs uppercase tracking-wider px-6 py-3 hover:border-white hover:text-white transition-colors">
+                  LinkedIn →
+                </a>
               </motion.div>
-            ))}
-          </div>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* APPROCHE PRODUIT */}
-      <section id="approche" className="py-24 px-6 md:px-12">
-        <motion.div className="max-w-4xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-rose/10 text-rose text-xs font-bold px-3 py-1.5 rounded-full mb-6">Approche produit</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-6">
-            Concevoir et livrer<span className="text-rose">.</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-lg text-dark/50 leading-relaxed mb-16 max-w-2xl">
-            Ce qui me passionne, c&apos;est d&apos;aller du problème utilisateur jusqu&apos;au produit qui tourne. Je fais à la fois la partie product (discovery, priorisation, roadmap) et la partie build (no-code, vibe coding, mise en prod). C&apos;est cette complémentarité que j&apos;apporte.
-          </motion.p>
+      {/* 3. Séparateur */}
+      <div className="flex h-2">
+        <div className="flex-1 bg-orange" />
+        <div className="flex-1 bg-violet" />
+        <div className="flex-1 bg-rose" />
+        <div className="flex-1 bg-sky" />
+        <div className="flex-1 bg-lime" />
+      </div>
 
-          {/* Chiffres */}
-          <motion.div variants={fadeUp} className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-16">
+      {/* 4. Nomad's */}
+      <section id="nomads" className="py-32 px-6 md:px-12">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="mb-20">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-orange font-bold mb-6">Ma boîte · 2016–2025</div>
+            <h2 className="font-heading text-[clamp(3rem,7vw,6rem)] font-bold tracking-tight leading-[0.9]">
+              Nomad&apos;s<span className="text-orange">.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div variants={slideRight} className="border-l-4 border-orange pl-8 md:pl-12 mb-20 md:ml-24">
+            <p className="font-heading text-xl md:text-2xl font-bold leading-[1.5] text-dark max-w-xl">
+              En 2016, j&apos;ai créé une plateforme de mise en relation entre praticien·ne·s bien-être et bars, restaurants, entreprises et événements.
+              <br /><span className="text-orange text-lg md:text-xl">La mission : démocratiser le bien-être et l&apos;amener partout, pour tout le monde.</span>
+            </p>
+          </motion.div>
+
+          <div className="md:grid md:grid-cols-12 gap-x-8 gap-y-20 mb-20">
+            <motion.div variants={fadeUp} className="col-span-5 mb-16 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-orange font-bold mb-6">L&apos;origine</div>
+              <p className="text-dark/65 leading-[1.8]">
+                <strong className="text-dark">J&apos;ai vécu 18 ans à Berlin.</strong> C&apos;est là-bas que j&apos;ai découvert le massage bien-être en bar, sur chaise, accessible à tous. J&apos;ai pratiqué ce métier pendant <strong className="text-dark">8 ans comme job étudiant</strong>, et j&apos;en ai vécu. De retour à Paris, je constate que le concept n&apos;existe pas. Et que c&apos;est le meilleur job du monde. <strong className="text-dark">Je décide de le créer.</strong>
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="col-span-5 col-start-8 mb-16 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-violet font-bold mb-6">Le concept</div>
+              <p className="text-dark/65 leading-[1.8]">
+                Recruter et former des masseurs et masseuses freelance qui, via notre plateforme, proposent des massages dans les bars et restaurants partenaires, et interviennent en entreprise et en événementiel pour toute prestation de bien-être.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="col-span-5 mb-16 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-rose font-bold mb-6">La plateforme</div>
+              <p className="text-dark/65 leading-[1.8]">
+                <strong className="text-dark">J&apos;ai conçu la plateforme de A à Z</strong> : <strong className="text-dark">design, specs, priorisation, user research, tests utilisateurs.</strong> La tech a été construite avec des freelances dev que je pilotais. J&apos;ai aussi <strong className="text-dark">posé toutes les bases de la V2</strong>, jamais livrée (cf. Pourquoi PM ci-dessous). Et un système de crédits prépayés (Mads) qui tourne depuis 7 ans sans modification.
+              </p>
+            </motion.div>
+
+            <motion.div variants={fadeUp} className="col-span-5 col-start-8 mb-16 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-sky font-bold mb-6">Le résultat</div>
+              <p className="text-dark/65 leading-[1.8]">
+                Nomad&apos;s s&apos;est imposé pendant près de 10 ans dans le paysage du bien-être en France. Des clients comme BNP, L&apos;Oréal, Doctolib, BETC, BMW, Coca-Cola, Netflix, Joone. Des centaines de milliers de massages. <strong className="text-dark">Des festivals, des trains, des rooftops, des lancements de presse...</strong> On a amené la culture du massage là où elle n&apos;existait pas, et ouvert la porte de la reconversion à des centaines de praticien·ne·s.
+              </p>
+            </motion.div>
+          </div>
+
+          <motion.div variants={fadeUp} className="bg-dark text-white p-8 md:p-10 flex flex-wrap gap-x-16 gap-y-8">
             {[
-              { value: "460K€", label: "Revenus générés pour la communauté Nomad's", color: "text-orange" },
-              { value: "x30", label: "Scaling Le Labo de Clairie (40 → 1 200 membres)", color: "text-violet" },
-              { value: "2 ETP", label: "Remplacés par l'automatisation no-code", color: "text-rose" },
-              { value: "9 ans", label: "CEO solo, marketplace rentable, exit", color: "text-sky" },
+              { value: "200", label: "praticien·ne·s actif·ve·s · 900+ sur 9 ans", color: "text-orange" },
+              { value: "600K€/an", label: "volume communauté", color: "text-violet" },
+              { value: "154", label: "prestations B2B livrées en 2024", color: "text-rose" },
+              { value: "+35K€", label: "swing EBITDA 2023→2024", color: "text-lime" },
             ].map((stat) => (
-              <div key={stat.label} className="bg-white rounded-2xl p-6">
-                <div className={`font-heading text-2xl md:text-3xl font-bold ${stat.color} mb-2`}>{stat.value}</div>
-                <div className="text-dark/40 text-xs leading-relaxed">{stat.label}</div>
+              <div key={stat.label}>
+                <span className={`font-heading text-3xl md:text-4xl font-bold ${stat.color}`}>{stat.value}</span>
+                <span className="text-white/40 text-sm ml-3">{stat.label}</span>
               </div>
             ))}
           </motion.div>
+        </motion.div>
+      </section>
 
-          {/* Façon de travailler */}
-          <motion.div variants={fadeUp} className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white rounded-3xl p-8">
-              <div className={`w-3 h-3 rounded-full bg-orange mb-5`} />
-              <h3 className="font-heading text-base font-bold mb-3">Problème d&apos;abord</h3>
-              <p className="text-dark/50 text-sm leading-relaxed">Je ne commence jamais par la solution. Discovery, user research, données terrain. Chez Nomad&apos;s, j&apos;ai fermé 2 villes non rentables plutôt que de les maintenir sous perfusion.</p>
+      {/* 5. Approche produit */}
+      <section id="approche" className="py-32 px-6 md:px-12 bg-orange text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="mb-20">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/60 font-bold mb-6">Approche produit</div>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight leading-[1.1] max-w-4xl">
+              De la vision au produit qui tourne<span className="text-dark/40">.</span>
+            </h2>
+          </motion.div>
+
+          <motion.div variants={fadeUp} className="md:grid md:grid-cols-3 gap-px bg-white/20">
+            <div className="bg-orange p-8">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-dark/60 font-bold mb-4">01</div>
+              <h3 className="font-heading text-lg font-bold mb-5">Discovery en continu</h3>
+              <div className="text-white/70 text-base leading-relaxed space-y-4">
+                <p>Chez Nomad&apos;s, mes praticien·ne·s étaient mes client·e·s. <strong className="text-white">Leur avis était constamment demandé et implémenté</strong> : tests de features, sondages, interviews utilisateur, votes sur les fonctionnalités.</p>
+                <p>Régulièrement dans l&apos;année, des <strong className="text-white">hackathons internes et réunions</strong> pour réfléchir ensemble à partir de leurs vrais besoins.</p>
+                <p>Ce ping-pong continu avec les utilisateurs donne des insights auxquels on n&apos;aurait jamais pensé. C&apos;est aussi ce qui m&apos;a amenée à <strong className="text-white">fermer 2 villes non rentables</strong> : contre-intuitif, mais c&apos;est la décision qui a rendu la boîte rentable.</p>
+              </div>
             </div>
-            <div className="bg-white rounded-3xl p-8">
-              <div className={`w-3 h-3 rounded-full bg-violet mb-5`} />
-              <h3 className="font-heading text-base font-bold mb-3">Build & ship</h3>
-              <p className="text-dark/50 text-sm leading-relaxed">Je ne reste pas côté spec. Je prototype, je code (ou no-code), je mets en prod. Le Labo de Clairie : de l&apos;idée au produit live en quelques semaines, pas en quelques mois.</p>
+            <div className="bg-orange p-8">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-dark/60 font-bold mb-4">02</div>
+              <h3 className="font-heading text-lg font-bold mb-5">Toute la chaîne</h3>
+              <div className="text-white/70 text-base leading-relaxed space-y-4">
+                <p>9 ans en CEO m&apos;ont amenée à tout faire : <strong className="text-white">vision produit, priorisation, specs, user research, delivery.</strong> Aujourd&apos;hui, avec le no-code et le build IA-assisté, <strong className="text-white">je livre aussi des produits complets moi-même.</strong></p>
+                <p>Ma force : <strong className="text-white">je comprends les problématiques business</strong> d&apos;un CEO parce que je l&apos;ai été, et <strong className="text-white">les contraintes techniques</strong> d&apos;un dev parce que je sais ce que c&apos;est de builder. Quand on me dit que quelque chose est possible ou pas, je comprends pourquoi.</p>
+              </div>
             </div>
-            <div className="bg-white rounded-3xl p-8">
-              <div className={`w-3 h-3 rounded-full bg-rose mb-5`} />
-              <h3 className="font-heading text-base font-bold mb-3">Itérer avec les données</h3>
-              <p className="text-dark/50 text-sm leading-relaxed">KPIs, rétention, tunnel, cohortes. Chez Nomad&apos;s : 30% des praticiens les plus actifs consommaient 50 à 70% des crédits. Ce genre de signal change les décisions.</p>
+            <div className="bg-orange p-8">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-dark/60 font-bold mb-4">03</div>
+              <h3 className="font-heading text-lg font-bold mb-5">Data-centered, user-driven</h3>
+              <div className="text-white/70 text-base leading-relaxed space-y-4">
+                <p>Ce qui me motive dans le produit, c&apos;est d&apos;avoir un <strong className="text-white">impact fort avec des petites choses bien pensées</strong>, en partant toujours des <strong className="text-white">utilisateurs</strong> et en validant par les <strong className="text-white">données</strong>.</p>
+                <p>Chez Nomad&apos;s, le système Mads a automatisé 100% de la facturation et libéré 1 journée par mois. Au Labo de Clairie, une stack no-code a permis de passer de 40 à 1 200 choristes sans recruter.</p>
+                <p>Chaque décision part d&apos;un <strong className="text-white">besoin utilisateur</strong>, <strong className="text-white">se mesure dans les KPIs, et s&apos;ajuste en continu</strong>. C&apos;est cette boucle qui crée le vrai impact.</p>
+              </div>
             </div>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* PROJETS */}
-      <section id="projets" className="py-24 px-6 md:px-12">
-        <motion.div className="max-w-5xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-violet/10 text-violet text-xs font-bold px-3 py-1.5 rounded-full mb-6">Projets</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-16">
-            Ce que je construis<span className="text-violet">.</span>
-          </motion.h2>
-          <div className="grid md:grid-cols-2 gap-5">
-            {projects.map((project) => (
-              <Link key={project.title} href={`/projets/${project.slug}`}>
+      {/* 6. Cases PM */}
+      <section className="py-32 px-6 md:px-12 bg-dark text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="mb-16">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-6">Cases produit PM</div>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight">
+              Trois décisions produit qui ont fait la différence<span className="text-rose">.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {cases.map((c) => (
+              <Link key={c.slug} href={`/cases/${c.slug}`}>
                 <motion.div
                   variants={fadeUp}
-                  className={`group relative bg-white rounded-3xl p-8 hover:-translate-y-2 hover:shadow-2xl transition-all cursor-pointer h-full overflow-hidden`}
+                  className={`group relative border border-white/10 hover:border-${c.color} p-8 transition-all cursor-pointer h-full hover:-translate-y-1`}
                 >
-                  <div className={`absolute top-0 right-0 w-24 h-24 ${project.color}/10 rounded-full -translate-y-8 translate-x-8 group-hover:scale-150 transition-transform duration-500`} />
-                  <div className={`inline-block text-xs font-bold px-3 py-1.5 rounded-full mb-4 ${project.color === "bg-orange" ? "bg-orange/10 text-orange" : project.color === "bg-violet" ? "bg-violet/10 text-violet" : project.color === "bg-rose" ? "bg-rose/10 text-rose" : "bg-sky/10 text-sky"}`}>
-                    {project.tag}
-                  </div>
-                  <h3 className="font-heading text-2xl font-bold mb-3">{project.title}</h3>
-                  <p className="text-dark/50 leading-relaxed mb-4">{project.description}</p>
-                  <span className="text-sm font-semibold text-dark/30 group-hover:text-dark/60 transition-colors">Voir le projet →</span>
+                  <div className={`font-mono text-xs uppercase tracking-[0.2em] text-${c.color} font-bold mb-4`}>{c.tag}</div>
+                  <h3 className="font-heading text-xl font-bold mb-3">{c.title}</h3>
+                  <p className="text-white/50 leading-relaxed mb-6 text-sm">{c.description}</p>
+                  <span className={`font-mono text-xs uppercase tracking-wider text-white/30 group-hover:text-${c.color} transition-colors`}>Lire le case →</span>
                 </motion.div>
               </Link>
             ))}
@@ -319,17 +462,80 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* SKILLS */}
-      <section id="skills" className="py-24 px-6 md:px-12 bg-dark text-white rounded-[40px] mx-4 md:mx-8 mb-4">
-        <motion.div className="max-w-5xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-white/10 text-lime text-xs font-bold px-3 py-1.5 rounded-full mb-6">Compétences</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-16">
-            Mon stack<span className="text-rose">.</span>
-          </motion.h2>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+      {/* 7. Formation PM teaser */}
+      <section className="py-20 px-6 md:px-12 bg-violet/5 border-y border-violet/10">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="md:flex md:items-center md:justify-between md:gap-12">
+            <div className="mb-8 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-violet font-bold mb-4">Formation Product Management · 2026</div>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold tracking-tight mb-3">
+                Noé<span className="text-violet">.</span>
+              </h2>
+              <p className="text-dark/60 text-base leading-relaxed max-w-xl">
+                4 semaines intensives en équipe sur une vraie problématique sponsor BlaBlaCar. Use case, user research, priorisation, delivery.
+              </p>
+            </div>
+            <div className="flex flex-col gap-3 flex-shrink-0">
+              <div className="inline-flex items-center gap-2 bg-violet/10 text-violet text-xs font-bold px-4 py-2 rounded-full w-fit">
+                Certifié France Compétences · RS6636
+              </div>
+              <Link href="/formation-noe" className="bg-dark text-white font-mono text-xs uppercase tracking-wider px-6 py-3 hover:bg-violet transition-colors inline-block font-bold text-center">
+                Voir la formation →
+              </Link>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* 8. Product Builder */}
+      <section id="projets" className="py-32 px-6 md:px-12">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="mb-16">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-violet font-bold mb-6">Product Builder · Ce que je construis</div>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight">
+              Ce que je construis<span className="text-violet">.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 gap-5 mb-12">
+            {projects.map((project) => (
+              <Link key={project.title} href={`/projets/${project.slug}`}>
+                <motion.div
+                  variants={fadeUp}
+                  className={`group relative border-2 border-dark/10 hover:border-${project.color} p-8 transition-all cursor-pointer h-full hover:-translate-y-1 hover:shadow-lg`}
+                >
+                  <div className={`absolute top-0 left-0 w-full h-1 bg-${project.color} scale-x-0 group-hover:scale-x-100 transition-transform origin-left`} />
+                  <div className={`font-mono text-xs uppercase tracking-[0.2em] text-${project.color} font-bold mb-4`}>{project.tag}</div>
+                  <h3 className="font-heading text-2xl font-bold mb-3">{project.title}</h3>
+                  <p className="text-dark/55 leading-relaxed mb-6">{project.description}</p>
+                  <span className={`font-mono text-xs uppercase tracking-wider text-dark/30 group-hover:text-${project.color} transition-colors`}>Voir le projet →</span>
+                </motion.div>
+              </Link>
+            ))}
+          </div>
+
+          <motion.div variants={fadeUp} className="text-center">
+            <Link href="/projets" className="font-mono text-xs uppercase tracking-wider text-violet hover:text-dark transition-colors border-b border-violet/30 pb-1">
+              Voir tous les projets build →
+            </Link>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* 9. Compétences */}
+      <section className="py-32 px-6 md:px-12 bg-dark text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="mb-16">
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-6">Compétences</div>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight">
+              Ma stack<span className="text-rose">.</span>
+            </h2>
+          </motion.div>
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-12">
             {skills.map((group) => (
               <motion.div key={group.category} variants={fadeUp}>
-                <h3 className={`font-heading text-sm font-bold ${group.color} mb-5`}>{group.category}</h3>
+                <h3 className={`font-heading text-base font-bold text-${group.color} mb-5 pb-3 border-b-2 border-${group.color}/30`}>{group.category}</h3>
                 <ul className="space-y-3">
                   {group.items.map((item) => (
                     <li key={item} className="text-white/50 text-sm">{item}</li>
@@ -341,70 +547,63 @@ export default function Home() {
         </motion.div>
       </section>
 
-      {/* CE QUE JE CHERCHE */}
-      <section className="py-24 px-6 md:px-12">
-        <motion.div className="max-w-4xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-sky/10 text-sky text-xs font-bold px-3 py-1.5 rounded-full mb-6">Disponible</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-3xl md:text-5xl font-bold tracking-tight mb-12">
-            Ce que je cherche<span className="text-sky">.</span>
-          </motion.h2>
-          <div className="grid md:grid-cols-2 gap-6">
-            <motion.div variants={fadeUp} className="bg-white rounded-3xl p-8">
-              <div className="text-2xl mb-4">🎯</div>
-              <h3 className="font-heading text-lg font-bold mb-3">Un poste PM ou Product Builder</h3>
-              <p className="text-dark/50 leading-relaxed">CDI ou freelance. J&apos;aimerais rejoindre une équipe produit où apporter ma vision terrain (9 ans de CEO), ma capacité à construire (no-code, vibe coding), et ma passion pour les vrais problèmes utilisateurs.</p>
-            </motion.div>
-            <motion.div variants={fadeUp} className="bg-white rounded-3xl p-8">
-              <div className="text-2xl mb-4">⚡</div>
-              <h3 className="font-heading text-lg font-bold mb-3">Des projets pour Light Geek</h3>
-              <p className="text-dark/50 leading-relaxed">Vous avez un process à automatiser, une app à construire en no-code, ou un workflow IA à mettre en place ? C&apos;est ce que je fais au quotidien avec mon studio.</p>
-            </motion.div>
-            <motion.div variants={fadeUp} className="bg-white rounded-3xl p-8">
-              <div className="text-2xl mb-4">🤝</div>
-              <h3 className="font-heading text-lg font-bold mb-3">Des collabs</h3>
-              <p className="text-dark/50 leading-relaxed">Co-construire un side project, rejoindre une aventure early-stage, travailler avec d&apos;autres builders qui aiment shipper vite et bien.</p>
-            </motion.div>
-            <motion.div variants={fadeUp} className="bg-white rounded-3xl p-8">
-              <div className="text-2xl mb-4">💬</div>
-              <h3 className="font-heading text-lg font-bold mb-3">Du réseau et du mentorat</h3>
-              <p className="text-dark/50 leading-relaxed">Échanger avec des PM, des founders, des gens du produit. Apprendre, partager, se challenger. Si vous avez envie de prendre un café (virtuel ou non), je suis partante.</p>
-            </motion.div>
-          </div>
+      {/* 10. Pourquoi PM + Ce que je recherche */}
+      <section className="py-32 px-6 md:px-12">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="md:grid md:grid-cols-12 gap-8">
+            <div className="col-span-3 mb-12 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-3">Pourquoi PM maintenant</div>
+              <div className="w-12 h-1 bg-lime" />
+            </div>
+            <div className="col-span-8 col-start-5 space-y-10">
+              <motion.div variants={slideRight}>
+                <h3 className="font-heading text-lg font-bold mb-2">La continuité du rôle, pas la rupture</h3>
+                <p className="text-dark/65 leading-[1.8]">Quand je me suis posé la question de la suite après Nomad&apos;s, le rôle de PM est venu comme une évidence. C&apos;est ce que j&apos;aimais déjà en CEO : être au croisement de la tech, du business et des utilisateurs. Orchestrer, prioriser, arbitrer, faire. Le faire pour un produit, dans une équipe, en me concentrant pleinement sur la valeur utilisateur·ice et le delivery : c&apos;est ce qui me donne envie de me lever le matin.</p>
+              </motion.div>
+              <motion.div variants={slideRight} className="border-t border-dark/10 pt-10">
+                <h3 className="font-heading text-lg font-bold mb-2">L&apos;envie d&apos;une équipe autour de moi</h3>
+                <p className="text-dark/65 leading-[1.8]">J&apos;ai travaillé seule longtemps, et l&apos;envie aujourd&apos;hui est inverse : m&apos;inscrire dans une équipe, ne plus être la seule décisionnaire, avoir des collègues qui poussent dans la même direction. Avoir été à la tête de ma boîte 9 ans m&apos;aide à comprendre comment fonctionne une organisation, et à savoir m&apos;aligner sur une décision qui n&apos;est pas la mienne quand c&apos;est ce qu&apos;il faut faire.</p>
+              </motion.div>
+              <motion.div variants={slideRight} className="border-t border-dark/10 pt-10">
+                <h3 className="font-heading text-lg font-bold mb-2">L&apos;apprentissage qui a tout déclenché</h3>
+                <p className="text-dark/65 leading-[1.8]">À Nomad&apos;s, j&apos;ai conçu une V2 complète de la plateforme, spécifiée et prototypée. Elle n&apos;a jamais été livrée. Sans PM dédié·e protégé·e dans l&apos;organigramme, le rôle se sacrifie en premier : l&apos;opérationnel mange systématiquement le temps produit. C&apos;est exactement pour ça que je veux ce poste : pouvoir me consacrer à 100% au produit, dans un cadre où le delivery est protégé.</p>
+              </motion.div>
+              <motion.div variants={slideRight} className="border-t-2 border-dark/10 pt-10 mt-10">
+                <div className="font-mono text-xs uppercase tracking-[0.2em] text-sky font-bold mb-6">Ce que je recherche</div>
+                <h3 className="font-heading text-lg font-bold mb-2">Un poste de Product Manager qui construit</h3>
+                <p className="text-dark/60 leading-relaxed">CDI en startup ou scale-up France, idéalement marketplace ou plateforme. PM hybride : je veux concevoir, prioriser, arbitrer, et garder les mains dans le produit (no-code, prototypage IA, build assisté).</p>
+                <p className="text-dark/40 text-sm mt-3">📍 Paris · mobile Marseille · ouverte remote FR</p>
+              </motion.div>
+            </div>
+          </motion.div>
         </motion.div>
       </section>
 
-      {/* CONTACT */}
-      <section id="contact" className="py-24 px-6 md:px-12 text-center">
-        <motion.div className="max-w-2xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
-          <motion.div variants={fadeUp} className="inline-block bg-rose/10 text-rose text-xs font-bold px-3 py-1.5 rounded-full mb-6">Contact</motion.div>
-          <motion.h2 variants={fadeUp} className="font-heading text-2xl md:text-4xl font-bold tracking-tight mb-6">
-            Un projet<span className="text-orange">?</span> Parlons-en<span className="text-violet">.</span>
-          </motion.h2>
-          <motion.p variants={fadeUp} className="text-dark/50 text-lg mb-10">
-            Vous avez une idée, un produit à construire, ou vous souhaitez simplement échanger ? Écrivez-moi.
-          </motion.p>
-          <motion.div variants={fadeUp} className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a
-              href="mailto:aw.philibert@gmail.com"
-              className="inline-flex items-center gap-2 bg-dark text-white font-bold px-8 py-4 rounded-full hover:-translate-y-1 hover:shadow-xl transition-all text-sm"
-            >
+      {/* 11. Contact */}
+      <section id="contact" className="py-32 px-6 md:px-12 bg-violet text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
+          <motion.div variants={fadeUp}>
+            <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50 font-bold mb-8">Contact</div>
+            <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] font-bold tracking-tight leading-[1.1] mb-12">
+              Un projet<span className="text-lime">?</span><br />
+              Parlons-en<span className="text-orange">.</span>
+            </h2>
+          </motion.div>
+          <motion.div variants={slideRight} className="flex flex-col sm:flex-row gap-4">
+            <a href="mailto:aw.philibert@gmail.com" className="bg-white text-dark font-mono text-xs uppercase tracking-wider px-8 py-4 hover:bg-lime hover:text-dark transition-colors inline-block font-bold">
               aw.philibert@gmail.com
             </a>
-            <a
-              href="https://www.linkedin.com/in/alexandra-philibert-016680113/"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 border-2 border-dark/10 text-dark/60 font-semibold px-8 py-4 rounded-full hover:border-violet hover:text-violet transition-all text-sm"
-            >
+            <a href="https://www.linkedin.com/in/alexandra-philibert-016680113/" target="_blank" rel="noopener noreferrer" className="border-2 border-white/30 text-white font-mono text-xs uppercase tracking-wider px-8 py-4 hover:border-white hover:bg-white hover:text-violet transition-colors inline-block">
               LinkedIn →
             </a>
           </motion.div>
         </motion.div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="py-8 px-6 text-center text-xs text-dark/25">
-        © 2026 Alexandra Philibert · Construit en vibe coding avec Claude Code ♥
+      {/* 12. Footer */}
+      <footer className="py-6 px-6 md:px-12 flex justify-between items-center text-[11px] text-dark/30 font-mono">
+        <span>© 2026 Alexandra Philibert</span>
+        <span>Construit en Next.js + Claude Code</span>
       </footer>
     </>
   );

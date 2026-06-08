@@ -30,13 +30,13 @@ export default function LightGeekPage() {
           Light Geek<span className="text-orange">.</span>
         </motion.h1>
         <motion.p variants={fadeUp} className="text-xl text-dark/50 leading-relaxed mb-12 max-w-2xl">
-          Le site de mon studio no-code & automatisation IA. Concu et construit de A a Z en vibe coding.
+          Le site de mon studio no-code & automatisation IA. Conçu et construit de A à Z en vibe coding.
         </motion.p>
 
         {/* Screenshot placeholder */}
         <motion.div variants={fadeUp} className="bg-white rounded-3xl border border-dark/5 overflow-hidden mb-16">
           <div className="aspect-video bg-gradient-to-br from-orange/5 to-rose/5 flex items-center justify-center">
-            <span className="text-dark/20 font-mono text-sm">Screenshot a venir</span>
+            <span className="text-dark/20 font-mono text-sm">Screenshot à venir</span>
           </div>
         </motion.div>
 
@@ -45,15 +45,15 @@ export default function LightGeekPage() {
           <div>
             <h2 className="font-heading text-lg font-bold mb-4">Le projet</h2>
             <div className="text-dark/60 leading-relaxed space-y-4">
-              <p>Light Geek est mon studio d&apos;automatisation IA et no-code. J&apos;ai concu et construit le site vitrine moi-meme, en pur HTML/CSS/JS, sans framework ni build process.</p>
-              <p>Le site comprend une landing page avec un design audacieux (fond dark, neon, grille animee), un formulaire de candidature via Tally, et un systeme d&apos;analytics via Umami.</p>
-              <p>J&apos;ai egalement gere le SEO (meta tags, Open Graph, sitemap, robots.txt) et le deploiement sur Hostinger via webhook GitHub.</p>
+              <p>Light Geek est mon studio d&apos;automatisation IA et no-code. J&apos;ai conçu et construit le site vitrine moi-même, en pur HTML/CSS/JS, sans framework ni build process.</p>
+              <p>Le site comprend une landing page avec un design audacieux (fond dark, néon, grille animée), un formulaire de candidature via Tally, et un système d&apos;analytics via Umami.</p>
+              <p>J&apos;ai également géré le SEO (meta tags, Open Graph, sitemap, robots.txt) et le déploiement sur Hostinger via webhook GitHub.</p>
             </div>
           </div>
           <div>
             <h2 className="font-heading text-lg font-bold mb-4">Stack technique</h2>
             <ul className="space-y-3">
-              {["HTML / CSS / JS vanilla", "Formulaire Tally", "Analytics Umami", "Google Fonts (Unbounded, DM Sans, Space Mono)", "SEO : Open Graph, sitemap, robots.txt", "Deploiement Hostinger + webhook GitHub", "Custom cursor + scroll animations"].map((item) => (
+              {["HTML / CSS / JS vanilla", "Formulaire Tally", "Analytics Umami", "Google Fonts (Unbounded, DM Sans, Space Mono)", "SEO : Open Graph, sitemap, robots.txt", "Déploiement Hostinger + webhook GitHub", "Custom cursor + scroll animations"].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-dark/60 text-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-orange flex-shrink-0 mt-2" />
                   {item}

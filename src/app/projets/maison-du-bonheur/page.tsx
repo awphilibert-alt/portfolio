@@ -30,13 +30,13 @@ export default function MaisonDuBonheurPage() {
           La Maison du Bonheur<span className="text-rose">.</span>
         </motion.h1>
         <motion.p variants={fadeUp} className="text-xl text-dark/50 leading-relaxed mb-12 max-w-2xl">
-          App de planification de vacances collaboratives entre familles. Chambres, planning, cuisine, courses, budget partage type Tricount.
+          App de planification de vacances collaboratives entre familles. Chambres, planning, cuisine, courses, budget partagé type Tricount.
         </motion.p>
 
         {/* Screenshot placeholder */}
         <motion.div variants={fadeUp} className="bg-white rounded-3xl border border-dark/5 overflow-hidden mb-16">
           <div className="aspect-video bg-gradient-to-br from-rose/5 to-orange/5 flex items-center justify-center">
-            <span className="text-dark/20 font-mono text-sm">Screenshot a venir</span>
+            <span className="text-dark/20 font-mono text-sm">Screenshot à venir</span>
           </div>
         </motion.div>
 
@@ -45,15 +45,15 @@ export default function MaisonDuBonheurPage() {
           <div>
             <h2 className="font-heading text-lg font-bold mb-4">Le projet</h2>
             <div className="text-dark/60 leading-relaxed space-y-4">
-              <p>Une app complete pour organiser des vacances a plusieurs familles : attribution des chambres, planning jour par jour avec RSVP, binomes cuisine auto-generes, liste de courses liee aux menus.</p>
-              <p>Le budget est reparti proportionnellement aux nuits de chaque famille avec un algorithme type Tricount pour la simplification des dettes.</p>
+              <p>Une app complète pour organiser des vacances à plusieurs familles : attribution des chambres, planning jour par jour avec RSVP, binômes cuisine auto-générés, liste de courses liée aux menus.</p>
+              <p>Le budget est réparti proportionnellement aux nuits de chaque famille avec un algorithme type Tricount pour la simplification des dettes.</p>
               <p>L&apos;app inclut aussi une page d&apos;abonnement avec Stripe Checkout (3 plans, toggle mensuel/annuel, essai gratuit).</p>
             </div>
           </div>
           <div>
             <h2 className="font-heading text-lg font-bold mb-4">Stack technique</h2>
             <ul className="space-y-3">
-              {["React 18 + Vite 5", "100% inline styles (pas de CSS externe)", "Persistance localStorage", "Stripe Checkout (serverless Vercel)", "Algorithme Tricount (simplification dettes)", "Generateur de binomes cuisine equitables", "Deploy auto Vercel depuis main"].map((item) => (
+              {["React 18 + Vite 5", "100% inline styles (pas de CSS externe)", "Persistance localStorage", "Stripe Checkout (serverless Vercel)", "Algorithme Tricount (simplification dettes)", "Générateur de binômes cuisine équitables", "Deploy auto Vercel depuis main"].map((item) => (
                 <li key={item} className="flex items-start gap-3 text-dark/60 text-sm">
                   <span className="w-1.5 h-1.5 rounded-full bg-rose flex-shrink-0 mt-2" />
                   {item}
@@ -65,9 +65,9 @@ export default function MaisonDuBonheurPage() {
 
         {/* Fonctionnalites */}
         <motion.div variants={fadeUp} className="mb-16">
-          <h2 className="font-heading text-lg font-bold mb-6">Fonctionnalites</h2>
+          <h2 className="font-heading text-lg font-bold mb-6">Fonctionnalités</h2>
           <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-4">
-            {["Chambres & attribution", "Planning & RSVP", "Binomes cuisine", "Activites filtrables", "Profils familles", "Liste de courses", "Suivi depenses", "Budget proportionnel", "Abonnement Stripe"].map((feat) => (
+            {["Chambres & attribution", "Planning & RSVP", "Binômes cuisine", "Activités filtrables", "Profils familles", "Liste de courses", "Suivi dépenses", "Budget proportionnel", "Abonnement Stripe"].map((feat) => (
               <div key={feat} className="bg-white rounded-xl px-4 py-3 text-sm text-dark/60">{feat}</div>
             ))}
           </div>
