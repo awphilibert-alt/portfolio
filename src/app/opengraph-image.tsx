@@ -34,8 +34,9 @@ export default function OpengraphImage() {
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ fontSize: 92, fontWeight: 700, lineHeight: 1 }}>
-            Alexandra Philibert<span style={{ color: "#FF5C00" }}>.</span>
+          <div style={{ display: "flex", fontSize: 92, fontWeight: 700, lineHeight: 1 }}>
+            <span>Alexandra Philibert</span>
+            <span style={{ color: "#FF5C00" }}>.</span>
           </div>
           <div
             style={{
