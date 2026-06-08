@@ -6,11 +6,11 @@ const siteUrl = "https://alexandra-philibert.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Alexandra Philibert — Product Manager & Builder no-code / IA",
+    default: "Alexandra Philibert · Product Manager & Builder no-code / IA",
     template: "%s · Alexandra Philibert",
   },
   description:
-    "Product Manager & product builder no-code et IA. Ex-fondatrice (9 ans, exit 2025), aujourd'hui PM sur des produits marketplace et plateforme. Discovery, priorisation, delivery — et capable de builder.",
+    "Product Manager & product builder no-code et IA. Ex-fondatrice (9 ans, exit 2025), aujourd'hui PM sur des produits marketplace et plateforme. Discovery, priorisation, delivery · et capable de builder.",
   keywords: [
     "Product Manager",
     "Product Builder",
@@ -34,15 +34,15 @@ export const metadata: Metadata = {
     locale: "fr_FR",
     url: siteUrl,
     siteName: "Alexandra Philibert",
-    title: "Alexandra Philibert — Product Manager & Builder no-code / IA",
+    title: "Alexandra Philibert · Product Manager & Builder no-code / IA",
     description:
-      "Ex-fondatrice (9 ans, exit 2025), aujourd'hui Product Manager sur des produits marketplace et plateforme. Discovery, priorisation, delivery — et capable de builder.",
+      "Ex-fondatrice (9 ans, exit 2025), aujourd'hui Product Manager sur des produits marketplace et plateforme. Discovery, priorisation, delivery · et capable de builder.",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Alexandra Philibert — Product Manager & Builder no-code / IA",
+    title: "Alexandra Philibert · Product Manager & Builder no-code / IA",
     description:
-      "Ex-fondatrice (9 ans, exit 2025), aujourd'hui Product Manager. Discovery, priorisation, delivery — et capable de builder.",
+      "Ex-fondatrice (9 ans, exit 2025), aujourd'hui Product Manager. Discovery, priorisation, delivery · et capable de builder.",
   },
   robots: {
     index: true,

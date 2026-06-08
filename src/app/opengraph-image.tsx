@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Alexandra Philibert — Product Manager & Builder no-code / IA";
+  "Alexandra Philibert · Product Manager & Builder no-code / IA";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -47,7 +47,7 @@ export default function OpengraphImage() {
               maxWidth: 900,
             }}
           >
-            Ex-fondatrice 9 ans · exit 2025. Discovery, priorisation, delivery —
+            Ex-fondatrice 9 ans · exit 2025. Discovery, priorisation, delivery ·
             et capable de builder.
           </div>
         </div>
