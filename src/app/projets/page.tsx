@@ -28,10 +28,10 @@ const projects = [
     color: "orange",
   },
   {
-    title: "La Maison du Bonheur",
+    title: "Colidays",
     slug: "maison-du-bonheur",
-    tag: "App · React",
-    description: "Planification de vacances collaborative. Budget type Tricount, binômes cuisine, paiement Stripe.",
+    tag: "App · React + Supabase",
+    description: "App de coloc de vacances. Répartition du loyer par chambre/nuits/adultes, dépenses partagées type Tricount, planning cuisine et courses, activités avec vote.",
     color: "rose",
   },
   {
