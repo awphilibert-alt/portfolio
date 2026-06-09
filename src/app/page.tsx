@@ -20,7 +20,7 @@ const stagger = {
   visible: { transition: { staggerChildren: 0.1 } },
 };
 
-const projectSlugs = ["labo-de-clairie", "light-geek", "maison-du-bonheur", "dawghters"];
+const projectSlugs = ["labo-de-clairie", "light-geek", "colidays", "dawghters"];
 const caseSlugs = ["mads", "marseille-fermeture", "le-labo-de-clairie"];
 const caseColors = ["violet", "rose", "orange"];
 const projectColors = ["violet", "orange", "rose", "sky"];

@@ -105,7 +105,7 @@ export default function DawghtersPage() {
         </motion.div>
 
         <motion.div variants={fadeUp} className="pt-10 border-t-2 border-dark/10 flex justify-between">
-          <Link href="/projets/maison-du-bonheur" className="font-mono text-xs uppercase tracking-wider text-dark/40 hover:text-rose transition-colors">← Colidays</Link>
+          <Link href="/projets/colidays" className="font-mono text-xs uppercase tracking-wider text-dark/40 hover:text-rose transition-colors">← Colidays</Link>
           <span />
         </motion.div>
       </motion.div>

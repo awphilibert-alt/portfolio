@@ -29,7 +29,7 @@ const projects = [
   },
   {
     title: "Colidays",
-    slug: "maison-du-bonheur",
+    slug: "colidays",
     tag: "App · React + Supabase",
     description: "App de coloc de vacances. Répartition du loyer par chambre/nuits/adultes, dépenses partagées type Tricount, planning cuisine et courses, activités avec vote.",
     color: "rose",
