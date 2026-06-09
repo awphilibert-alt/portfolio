@@ -16,8 +16,8 @@ export default function CaseMarseillePage() {
   return (
     <main className="min-h-screen bg-cream text-dark">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 bg-cream/90 backdrop-blur-md border-b border-dark/5">
-        <Link href="/" className="font-heading text-xl font-extrabold tracking-tight">
-          A<span className="text-orange">.</span>P<span className="text-violet">.</span>
+        <Link href="/" className="font-heading text-lg font-bold tracking-tight">
+          Alexandra Philibert<span className="text-orange">.</span>
         </Link>
         <Link href="/cases" className="text-sm font-semibold text-dark/40 hover:text-rose transition-colors">
           ← Tous les cases
@@ -63,12 +63,12 @@ export default function CaseMarseillePage() {
                 <p className="text-dark/50 text-sm mt-1">swing EBITDA : -23 500€ en 2023 → +11 800€ en 2024</p>
               </div>
               <div>
-                <div className="font-heading text-2xl font-bold text-rose">4 villes</div>
-                <p className="text-dark/50 text-sm mt-1">restantes ont continué à croître</p>
+                <div className="font-heading text-2xl font-bold text-rose">Coûts ops</div>
+                <p className="text-dark/50 text-sm mt-1">réduction des coûts opérationnels sur 2 villes non rentables</p>
               </div>
               <div>
-                <div className="font-heading text-2xl font-bold text-rose">Rentabilité</div>
-                <p className="text-dark/50 text-sm mt-1">retour confirmé sur l&apos;exercice 2024</p>
+                <div className="font-heading text-2xl font-bold text-rose">Focus équipe</div>
+                <p className="text-dark/50 text-sm mt-1">énergie recentrée sur 4 villes performantes, charge mentale allégée</p>
               </div>
             </div>
           </div>

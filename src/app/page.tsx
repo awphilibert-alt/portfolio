@@ -159,8 +159,8 @@ function MobileNav() {
         >
           <a href="#parcours" onClick={() => setOpen(false)} className="text-orange font-mono text-sm uppercase tracking-widest">Parcours</a>
           <a href="#nomads" onClick={() => setOpen(false)} className="text-violet font-mono text-sm uppercase tracking-widest">Nomad&apos;s</a>
-          <Link href="/cases" onClick={() => setOpen(false)} className="text-rose font-mono text-sm uppercase tracking-widest">Cases PM</Link>
-          <Link href="/formation-noe" onClick={() => setOpen(false)} className="text-sky font-mono text-sm uppercase tracking-widest">Formation</Link>
+          <a href="#cases" onClick={() => setOpen(false)} className="text-rose font-mono text-sm uppercase tracking-widest">Cases PM</a>
+          <a href="#projets" onClick={() => setOpen(false)} className="text-sky font-mono text-sm uppercase tracking-widest">Ce que je construis</a>
           <a href="#contact" onClick={() => setOpen(false)} className="text-violet font-mono text-sm uppercase tracking-widest">Contact</a>
         </motion.div>
       )}
@@ -175,14 +175,14 @@ export default function Home() {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-14 bg-cream/80 backdrop-blur-md">
-        <a href="#" className="font-heading text-lg font-bold tracking-tight">
+        <a href="/" className="font-heading text-lg font-bold tracking-tight">
           Alexandra Philibert<span className="text-orange">.</span>
         </a>
         <div className="hidden md:flex gap-8 text-xs font-mono uppercase tracking-widest">
           <a href="#parcours" className="text-dark hover:text-orange transition-colors">Parcours</a>
           <a href="#nomads" className="text-dark hover:text-violet transition-colors">Nomad&apos;s</a>
-          <Link href="/cases" className="text-dark hover:text-rose transition-colors">Cases PM</Link>
-          <Link href="/formation-noe" className="text-dark hover:text-sky transition-colors">Formation</Link>
+          <a href="#cases" className="text-dark hover:text-rose transition-colors">Cases PM</a>
+          <a href="#projets" className="text-dark hover:text-sky transition-colors">Ce que je construis</a>
           <a href="#contact" className="text-dark hover:text-violet transition-colors">Contact</a>
         </div>
         <MobileNav />
@@ -237,16 +237,13 @@ export default function Home() {
           {/* About me */}
           <motion.div variants={fadeUp} className="md:grid md:grid-cols-12 gap-12 mb-24">
             <div className="col-span-4 mb-12 md:mb-0">
-              <div className="aspect-[3/4] bg-white/5 border-2 border-white/10 flex items-center justify-center">
-                <span className="text-white/20 font-mono text-xs">Photo à venir</span>
-              </div>
-            </div>
-            <div className="col-span-8 col-start-5">
               <div className="font-mono text-xs uppercase tracking-[0.2em] text-orange font-bold mb-3">About me</div>
               <div className="w-12 h-1 bg-orange mb-6" />
-              <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight mb-8">
+              <h2 className="font-heading text-[clamp(2rem,5vw,4rem)] font-bold tracking-tight">
                 Alexandra Philibert<span className="text-orange">.</span>
               </h2>
+            </div>
+            <div className="col-span-8 col-start-5">
               <div className="text-white/60 text-base leading-[1.9] space-y-5 mb-8">
                 <p>
                   J&apos;ai créé <strong className="text-white">Nomad&apos;s</strong> en 2016, une marketplace bien-être que j&apos;ai dirigée seule pendant 9 ans avant de la céder en 2025. Plus de 900 praticien·ne·s sont passé·e·s par la plateforme, dans 6 villes en France. J&apos;étais seule aux commandes, sans équipe technique. Alors j&apos;ai tout appris sur le tas, et j&apos;ai tout automatisé. <strong className="text-white">J&apos;ai automatisé par nécessité, puis par conviction : c&apos;est devenu mon métier.</strong>
@@ -276,7 +273,7 @@ export default function Home() {
           </motion.div>
 
           {/* Parcours (même grille, même colonne de départ) */}
-          <motion.div id="parcours" variants={fadeUp} className="md:grid md:grid-cols-12 gap-12">
+          <motion.div id="parcours" variants={fadeUp} className="md:grid md:grid-cols-12 gap-12 scroll-mt-20">
             <div className="col-span-4 mb-12 md:mb-0">
               <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-3">Parcours</div>
               <div className="w-12 h-1 bg-lime" />
@@ -439,7 +436,7 @@ export default function Home() {
       </section>
 
       {/* 6. Cases PM */}
-      <section className="py-32 px-6 md:px-12 bg-dark text-white">
+      <section id="cases" className="py-32 px-6 md:px-12 bg-dark text-white scroll-mt-20">
         <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
           <motion.div variants={fadeUp} className="mb-16">
             <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-6">Cases produit PM</div>
@@ -494,7 +491,7 @@ export default function Home() {
       </section>
 
       {/* 8. Product Builder */}
-      <section id="projets" className="py-32 px-6 md:px-12">
+      <section id="projets" className="py-32 px-6 md:px-12 scroll-mt-20">
         <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
           <motion.div variants={fadeUp} className="mb-16">
             <div className="font-mono text-xs uppercase tracking-[0.2em] text-orange font-bold mb-6">Product Builder</div>
@@ -567,28 +564,45 @@ export default function Home() {
         <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
           <motion.div variants={fadeUp} className="md:grid md:grid-cols-12 gap-8">
             <div className="col-span-3 mb-12 md:mb-0">
-              <div className="font-mono text-xs uppercase tracking-[0.2em] text-lime font-bold mb-3">Pourquoi PM maintenant</div>
-              <div className="w-12 h-1 bg-lime" />
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-violet font-bold mb-3">Pourquoi PM maintenant ?</div>
+              <div className="w-12 h-1 bg-violet" />
             </div>
             <div className="col-span-8 col-start-5 space-y-10">
               <motion.div variants={slideRight}>
                 <h3 className="font-heading text-lg font-bold mb-2">La continuité du rôle, pas la rupture</h3>
                 <p className="text-dark/65 leading-[1.8]">Quand je me suis posé la question de la suite après Nomad&apos;s, le rôle de PM est venu comme une évidence. C&apos;est ce que j&apos;aimais déjà en CEO : être au croisement de la tech, du business et des utilisateurs. Orchestrer, prioriser, arbitrer, faire. Le faire pour un produit, dans une équipe, en me concentrant pleinement sur la valeur utilisateur·ice et le delivery : c&apos;est ce qui me donne envie de me lever le matin.</p>
               </motion.div>
-              <motion.div variants={slideRight} className="border-t border-dark/10 pt-10">
+              <motion.div variants={slideRight} className="border-t-2 border-orange pt-10">
                 <h3 className="font-heading text-lg font-bold mb-2">L&apos;envie d&apos;une équipe autour de moi</h3>
                 <p className="text-dark/65 leading-[1.8]">J&apos;ai travaillé seule longtemps, et l&apos;envie aujourd&apos;hui est inverse : m&apos;inscrire dans une équipe, ne plus être la seule décisionnaire, avoir des collègues qui poussent dans la même direction. Avoir été à la tête de ma boîte 9 ans m&apos;aide à comprendre comment fonctionne une organisation, et à savoir m&apos;aligner sur une décision qui n&apos;est pas la mienne quand c&apos;est ce qu&apos;il faut faire.</p>
               </motion.div>
-              <motion.div variants={slideRight} className="border-t border-dark/10 pt-10">
+              <motion.div variants={slideRight} className="border-t-2 border-rose pt-10">
                 <h3 className="font-heading text-lg font-bold mb-2">L&apos;apprentissage qui a tout déclenché</h3>
                 <p className="text-dark/65 leading-[1.8]">À Nomad&apos;s, j&apos;ai conçu une V2 complète de la plateforme, spécifiée et prototypée. Elle n&apos;a jamais été livrée. Sans PM dédié·e protégé·e dans l&apos;organigramme, le rôle se sacrifie en premier : l&apos;opérationnel mange systématiquement le temps produit. C&apos;est exactement pour ça que je veux ce poste : pouvoir me consacrer à 100% au produit, dans un cadre où le delivery est protégé.</p>
               </motion.div>
-              <motion.div variants={slideRight} className="border-t-2 border-dark/10 pt-10 mt-10">
-                <div className="font-mono text-xs uppercase tracking-[0.2em] text-sky font-bold mb-6">Ce que je recherche</div>
-                <h3 className="font-heading text-lg font-bold mb-2">Un poste de Product Manager qui construit</h3>
-                <p className="text-dark/60 leading-relaxed">CDI en startup ou scale-up France, idéalement marketplace ou plateforme. PM hybride : je veux concevoir, prioriser, arbitrer, et garder les mains dans le produit (no-code, prototypage IA, build assisté).</p>
-                <p className="text-dark/40 text-sm mt-3">📍 Paris · mobile Marseille · ouverte remote FR</p>
-              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
+      </section>
+
+      {/* 10b. Ce que je recherche */}
+      <section className="py-20 px-6 md:px-12 bg-dark text-white">
+        <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-100px" }} variants={stagger}>
+          <motion.div variants={fadeUp} className="md:flex md:items-center md:justify-between md:gap-12">
+            <div className="mb-8 md:mb-0">
+              <div className="font-mono text-xs uppercase tracking-[0.2em] text-sky font-bold mb-4">Ce que je recherche</div>
+              <h2 className="font-heading text-2xl md:text-3xl font-bold tracking-tight mb-4">
+                Un poste de PM qui construit<span className="text-orange">.</span>
+              </h2>
+              <p className="text-white/60 text-base leading-relaxed max-w-xl">
+                CDI ou freelance en startup ou scale-up France, idéalement marketplace ou plateforme. PM hybride : concevoir, prioriser, arbitrer, et garder les mains dans le produit.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3">
+              <span className="bg-white/10 text-white/80 text-xs px-4 py-2">📍 Paris</span>
+              <span className="bg-white/10 text-white/80 text-xs px-4 py-2">Mobile Marseille</span>
+              <span className="bg-white/10 text-white/80 text-xs px-4 py-2">Remote FR</span>
+              <span className="bg-white/10 text-white/80 text-xs px-4 py-2">CDI ou freelance</span>
             </div>
           </motion.div>
         </motion.div>
@@ -598,10 +612,8 @@ export default function Home() {
       <section id="contact" className="py-32 px-6 md:px-12 bg-violet text-white">
         <motion.div className="max-w-6xl mx-auto" initial="hidden" whileInView="visible" viewport={{ once: true }} variants={stagger}>
           <motion.div variants={fadeUp}>
-            <div className="font-mono text-xs uppercase tracking-[0.2em] text-white/50 font-bold mb-8">Contact</div>
             <h2 className="font-heading text-[clamp(2rem,5vw,4.5rem)] font-bold tracking-tight leading-[1.1] mb-12">
-              Un projet<span className="text-lime">?</span><br />
-              Parlons-en<span className="text-orange">.</span>
+              Me contacter 👋
             </h2>
           </motion.div>
           <motion.div variants={slideRight} className="flex flex-col sm:flex-row gap-4">

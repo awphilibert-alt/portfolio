@@ -16,8 +16,8 @@ export default function DawghtersPage() {
   return (
     <main className="min-h-screen bg-cream text-dark">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 bg-cream/90 backdrop-blur-md border-b border-dark/5">
-        <Link href="/" className="font-heading text-xl font-extrabold tracking-tight">
-          A<span className="text-orange">.</span>P<span className="text-violet">.</span>
+        <Link href="/" className="font-heading text-lg font-bold tracking-tight">
+          Alexandra Philibert<span className="text-orange">.</span>
         </Link>
         <Link href="/#projets" className="text-sm font-semibold text-dark/40 hover:text-sky transition-colors">
           ← Retour aux projets

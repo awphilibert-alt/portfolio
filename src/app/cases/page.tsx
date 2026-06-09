@@ -43,8 +43,8 @@ export default function CasesPage() {
   return (
     <main className="min-h-screen bg-cream text-dark">
       <nav className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-6 md:px-12 h-16 bg-cream/90 backdrop-blur-md border-b border-dark/5">
-        <Link href="/" className="font-heading text-xl font-extrabold tracking-tight">
-          A<span className="text-orange">.</span>P<span className="text-violet">.</span>
+        <Link href="/" className="font-heading text-lg font-bold tracking-tight">
+          Alexandra Philibert<span className="text-orange">.</span>
         </Link>
         <Link href="/" className="text-sm font-semibold text-dark/40 hover:text-lime transition-colors">
           ← Retour
@@ -52,9 +52,9 @@ export default function CasesPage() {
       </nav>
 
       <motion.div className="max-w-4xl mx-auto px-6 pt-28 pb-24" initial="hidden" animate="visible" variants={stagger}>
-        <motion.div variants={fadeUp} className="inline-block bg-lime/10 text-lime text-xs font-bold px-3 py-1.5 rounded-full mb-6">Cas produit PM</motion.div>
+        <motion.div variants={fadeUp} className="inline-block bg-rose/10 text-rose text-xs font-bold px-3 py-1.5 rounded-full mb-6">Cas produit PM</motion.div>
         <motion.h1 variants={fadeUp} className="font-heading text-4xl md:text-6xl font-bold tracking-tight mb-6">
-          Trois décisions produit qui ont fait la différence<span className="text-lime">.</span>
+          Trois décisions produit qui ont fait la différence<span className="text-rose">.</span>
         </motion.h1>
         <motion.p variants={fadeUp} className="text-xl text-dark/50 leading-relaxed mb-16 max-w-2xl">
           Pricing, data-informed decision, stakeholder management. Trois cas réels, deux chez Nomad&apos;s (2019 et 2024), un en cours sur Le Labo de Clairie.
