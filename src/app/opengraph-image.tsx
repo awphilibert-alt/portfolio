@@ -14,45 +14,95 @@ export default function OpengraphImage() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          backgroundColor: "#FFF8F0",
-          color: "#1A1A2E",
-          padding: "72px",
+          justifyContent: "center",
+          background: "linear-gradient(135deg, #1A1A2E 0%, #2D1B4E 50%, #1A1A2E 100%)",
+          color: "#FFFFFF",
+          padding: "72px 80px",
           fontFamily: "sans-serif",
+          position: "relative",
+          overflow: "hidden",
         }}
       >
+        {/* Subtle glow */}
         <div
           style={{
-            fontSize: 26,
-            letterSpacing: "0.2em",
+            position: "absolute",
+            top: -100,
+            right: -100,
+            width: 500,
+            height: 500,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(123,97,255,0.15) 0%, transparent 70%)",
+            display: "flex",
+          }}
+        />
+        <div
+          style={{
+            position: "absolute",
+            bottom: -150,
+            left: -50,
+            width: 400,
+            height: 400,
+            borderRadius: "50%",
+            background: "radial-gradient(circle, rgba(255,92,0,0.1) 0%, transparent 70%)",
+            display: "flex",
+          }}
+        />
+
+        {/* Title label */}
+        <div
+          style={{
+            fontSize: 22,
+            letterSpacing: "0.15em",
             textTransform: "uppercase",
             fontWeight: 700,
-            color: "#00C2FF",
+            color: "#FF5C00",
+            marginBottom: 32,
+            display: "flex",
           }}
         >
-          Product Manager &amp; Builder no-code / IA
+          Product Manager & Builder no-code / IA
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", fontSize: 92, fontWeight: 700, lineHeight: 1 }}>
-            <span>Alexandra Philibert</span>
-            <span style={{ color: "#FF5C00" }}>.</span>
-          </div>
-          <div
-            style={{
-              fontSize: 32,
-              marginTop: 24,
-              color: "#1A1A2E",
-              opacity: 0.6,
-              maxWidth: 900,
-            }}
-          >
-            Ex-fondatrice 9 ans · exit 2025. Discovery, priorisation, delivery ·
-            et capable de builder.
-          </div>
+        {/* Name */}
+        <div
+          style={{
+            display: "flex",
+            fontSize: 96,
+            fontWeight: 800,
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
+            marginBottom: 28,
+          }}
+        >
+          <span>Alexandra</span>
+        </div>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 96,
+            fontWeight: 800,
+            lineHeight: 1.05,
+            letterSpacing: "-0.02em",
+            marginBottom: 32,
+          }}
+        >
+          <span>Philibert</span>
+          <span style={{ color: "#FF5C00" }}>.</span>
         </div>
 
-        <div style={{ display: "flex", height: 14, width: "100%" }}>
+
+        {/* Color bar at bottom */}
+        <div
+          style={{
+            position: "absolute",
+            bottom: 0,
+            left: 0,
+            right: 0,
+            display: "flex",
+            height: 6,
+          }}
+        >
           <div style={{ flex: 1, backgroundColor: "#FF5C00" }} />
           <div style={{ flex: 1, backgroundColor: "#7B61FF" }} />
           <div style={{ flex: 1, backgroundColor: "#FF3CAC" }} />
