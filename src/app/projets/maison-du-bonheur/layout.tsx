@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "La Maison du Bonheur · app collaborative",
+  title: "Colidays · app de vacances collaborative",
   description:
-    "App de planification de vacances entre familles : attribution des chambres, planning, binômes cuisine, budget type Tricount, paiement Stripe.",
+    "App de planification de vacances entre familles : répartition du loyer, dépenses partagées, attribution des chambres, planning cuisine, activités avec vote.",
   alternates: { canonical: "/projets/maison-du-bonheur" },
   openGraph: {
-    title: "La Maison du Bonheur · app collaborative · Alexandra Philibert",
+    title: "Colidays · app de vacances collaborative · Alexandra Philibert",
     description:
-      "Planification de vacances entre familles : budget type Tricount, binômes cuisine, paiement Stripe. React + Vite.",
+      "Vacances entre familles : répartition du loyer, dépenses type Tricount, planning cuisine, activités avec vote. React + Supabase.",
   },
 };
 

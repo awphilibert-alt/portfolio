@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import { LangProvider } from "./lang-provider";
 
 const siteUrl = "https://alexandra-philibert.vercel.app";
 
@@ -75,7 +76,7 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
-        {children}
+        <LangProvider>{children}</LangProvider>
       </body>
     </html>
   );
