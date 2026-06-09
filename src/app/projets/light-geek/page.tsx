@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "../../lang-provider";
+import { ImageLightbox } from "../../components/image-lightbox";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -61,8 +62,8 @@ export default function LightGeekPage() {
         </motion.h1>
         <motion.p variants={fadeUp} className="text-xl text-dark/50 leading-relaxed mb-12 max-w-2xl">{content.subtitle[lang]}</motion.p>
 
-        <motion.div variants={fadeUp} className="bg-white border border-dark/5 overflow-hidden mb-16">
-          <img src="/screenshot-light-geek.png" alt="Light Geek" className="w-full" />
+        <motion.div variants={fadeUp} className="mb-16">
+          <ImageLightbox src="/screenshot-light-geek.png" alt="Light Geek" />
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-12 mb-16">

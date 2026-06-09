@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "../../lang-provider";
+import { ImageLightbox } from "../../components/image-lightbox";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -89,8 +90,8 @@ export default function LaboDeClairiePage() {
           {content.subtitle[lang]}
         </motion.p>
 
-        <motion.div variants={fadeUp} className="bg-white border border-dark/5 overflow-hidden mb-16">
-          <img src="/screenshot-labo-de-clairie.png" alt="Le Labo de Clairie" className="w-full" />
+        <motion.div variants={fadeUp} className="mb-16">
+          <ImageLightbox src="/screenshot-labo-de-clairie.png" alt="Le Labo de Clairie" />
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-12 mb-16">

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "../../lang-provider";
+import { ImageLightbox } from "../../components/image-lightbox";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -62,8 +63,8 @@ export default function DawghtersPage() {
         <motion.h1 variants={fadeUp} className="font-heading text-4xl md:text-6xl font-bold tracking-tight mb-6">DAWghters<span className="text-sky">.</span></motion.h1>
         <motion.p variants={fadeUp} className="text-xl text-dark/50 leading-relaxed mb-12 max-w-2xl">{content.subtitle[lang]}</motion.p>
 
-        <motion.div variants={fadeUp} className="bg-white border border-dark/5 overflow-hidden mb-16">
-          <img src="/screenshot-dawghters.png" alt="DAWghters" className="w-full" />
+        <motion.div variants={fadeUp} className="mb-16">
+          <ImageLightbox src="/screenshot-dawghters.png" alt="DAWghters" />
         </motion.div>
 
         <motion.div variants={fadeUp} className="grid md:grid-cols-2 gap-12 mb-16">
