@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect, useCallback } from "react";
 import { t } from "./translations";
 import { useLang } from "./lang-provider";
+import { LangToggle } from "./components/lang-toggle";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -78,18 +79,6 @@ function RotatingWord() {
   );
 }
 
-function LangToggle() {
-  const { lang, setLang } = useLang();
-  return (
-    <button
-      onClick={() => setLang(lang === "fr" ? "en" : "fr")}
-      className="font-mono text-xs uppercase tracking-wider border border-dark/20 px-2 py-1 hover:border-dark transition-colors ml-4"
-      aria-label="Toggle language"
-    >
-      {lang === "fr" ? "EN" : "FR"}
-    </button>
-  );
-}
 
 function MobileNav() {
   const { lang } = useLang();

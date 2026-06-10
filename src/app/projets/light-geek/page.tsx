@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useLang } from "../../lang-provider";
 import { ImageLightbox } from "../../components/image-lightbox";
+import { LangToggle } from "../../components/lang-toggle";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -50,9 +51,12 @@ export default function LightGeekPage() {
         <Link href="/" className="font-heading text-lg font-bold tracking-tight">
           Alexandra Philibert<span className="text-orange">.</span>
         </Link>
-        <a href="/#projets" className="text-sm font-semibold text-dark/40 hover:text-orange transition-colors">
-          {content.back[lang]}
-        </a>
+        <div className="flex items-center">
+          <a href="/#projets" className="text-sm font-semibold text-dark/40 hover:text-orange transition-colors">
+            {content.back[lang]}
+          </a>
+          <LangToggle />
+        </div>
       </nav>
 
       <motion.div className="max-w-4xl mx-auto px-6 pt-28 pb-24" initial="hidden" animate="visible" variants={stagger}>
