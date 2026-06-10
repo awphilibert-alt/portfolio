@@ -15,7 +15,7 @@ export default function OpengraphImage() {
           display: "flex",
           flexDirection: "column",
           justifyContent: "center",
-          background: "linear-gradient(135deg, #1A1A2E 0%, #2D1B4E 50%, #1A1A2E 100%)",
+          background: "linear-gradient(135deg, #16140E 0%, #1E1B14 50%, #16140E 100%)",
           color: "#FFFFFF",
           padding: "72px 80px",
           fontFamily: "sans-serif",
@@ -32,7 +32,7 @@ export default function OpengraphImage() {
             width: 500,
             height: 500,
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(123,97,255,0.15) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(43,91,240,0.15) 0%, transparent 70%)",
             display: "flex",
           }}
         />
@@ -44,7 +44,7 @@ export default function OpengraphImage() {
             width: 400,
             height: 400,
             borderRadius: "50%",
-            background: "radial-gradient(circle, rgba(255,92,0,0.1) 0%, transparent 70%)",
+            background: "radial-gradient(circle, rgba(255,107,61,0.1) 0%, transparent 70%)",
             display: "flex",
           }}
         />
@@ -56,7 +56,7 @@ export default function OpengraphImage() {
             letterSpacing: "0.15em",
             textTransform: "uppercase",
             fontWeight: 700,
-            color: "#FF5C00",
+            color: "#FF6B3D",
             marginBottom: 32,
             display: "flex",
           }}
@@ -88,7 +88,7 @@ export default function OpengraphImage() {
           }}
         >
           <span>Philibert</span>
-          <span style={{ color: "#FF5C00" }}>.</span>
+          <span style={{ color: "#FF6B3D" }}>.</span>
         </div>
 
 
@@ -103,11 +103,11 @@ export default function OpengraphImage() {
             height: 6,
           }}
         >
-          <div style={{ flex: 1, backgroundColor: "#FF5C00" }} />
-          <div style={{ flex: 1, backgroundColor: "#7B61FF" }} />
-          <div style={{ flex: 1, backgroundColor: "#FF3CAC" }} />
-          <div style={{ flex: 1, backgroundColor: "#00C2FF" }} />
-          <div style={{ flex: 1, backgroundColor: "#BFFF0A" }} />
+          <div style={{ flex: 1, backgroundColor: "#FF6B3D" }} />
+          <div style={{ flex: 1, backgroundColor: "#2B5BF0" }} />
+          <div style={{ flex: 1, backgroundColor: "#FF3D8B" }} />
+          <div style={{ flex: 1, backgroundColor: "#FFD23F" }} />
+          <div style={{ flex: 1, backgroundColor: "#B6F000" }} />
         </div>
       </div>
     ),
