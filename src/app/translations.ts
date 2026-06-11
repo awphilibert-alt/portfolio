@@ -69,14 +69,14 @@ export const t = {
     cvButton: { fr: "Télécharger mon CV ↓", en: "Download my CV ↓" },
     experience_items: {
       fr: [
-        { year: "2026 · présent", label: "Product Manager freelance", company: "Le Labo de Clairie", detail: "Nouvelle plateforme · V1 en ligne, objectif 10 000 choristes" },
+        { year: "2026 · présent", label: "Product Manager freelance", company: "Le Labo de Clairie", detail: "Nouvelle plateforme · V1 en ligne, objectif +2 500 choristes en année 2" },
         { year: "2025 · 2026", label: "Product Builder freelance", company: "Light Geek Studio", detail: "Studio no-code & IA, 9+ projets livrés" },
         { year: "2016 · 2025", label: "Fondatrice & CEO", company: "Nomad's", detail: "Marketplace bien-être à deux faces, 200 praticien·ne·s actif·ve·s, 900+ sur 9 ans, jusqu'à 6 villes (4 à la cession), cession à une entrepreneure en 2025" },
         { year: "2016", label: "Customer Experience", company: "Dior Parfums", detail: "Marchés UK, DACH, France · 3 langues" },
         { year: "2014 · 2016", label: "Traductrice freelance", company: "Arte", detail: "Transcription et traduction de rushs documentaires" },
       ],
       en: [
-        { year: "2026 · present", label: "Freelance Product Manager", company: "Le Labo de Clairie", detail: "New platform · V1 live, 10,000 choir members target" },
+        { year: "2026 · present", label: "Freelance Product Manager", company: "Le Labo de Clairie", detail: "New platform · V1 live, +2,500 choir members target in year 2" },
         { year: "2025 · 2026", label: "Freelance Product Builder", company: "Light Geek Studio", detail: "No-code & AI studio, 9+ projects shipped" },
         { year: "2016 · 2025", label: "Founder & CEO", company: "Nomad's", detail: "Two-sided wellness marketplace, 200 active practitioners, 900+ over 9 years, up to 6 cities (4 at exit), sold in 2025" },
         { year: "2016", label: "Customer Experience", company: "Dior Parfums", detail: "UK, DACH & France markets · 3 languages" },

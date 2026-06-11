@@ -18,8 +18,8 @@ const content = {
   back: { fr: "← Retour", en: "← Back" },
   pill: { fr: "Mission PM · en cours · 2026", en: "PM mission · ongoing · 2026" },
   subtitle: {
-    fr: "D'une chorale physique de 40 personnes à un produit digital qui vise 10 000 choristes (4 000 en présentiel, 6 000 en ligne). D'abord Product Builder, puis Product Manager.",
-    en: "From a 40-person physical choir to a digital product targeting 10,000 members (4,000 in-person, 6,000 online). First Product Builder, then Product Manager.",
+    fr: "D'une chorale de 40 personnes à 1 200 · V1 en ligne, objectif +2 500 choristes en année 2. D'abord Product Builder, puis Product Manager.",
+    en: "From a 40-person choir to 1,200 · V1 live, target +2,500 members in year 2. First Product Builder, then Product Manager.",
   },
   situation: { fr: "Situation", en: "Situation" },
   situationP1: {
@@ -65,12 +65,12 @@ const content = {
   stats: {
     fr: [
       { value: "500", desc: "préinscrits sur la V1 avant le lancement : demande validée" },
-      { value: "1 200 → 10 000", desc: "choristes actifs aujourd'hui, objectif 10 000 (4 000 présentiel + 6 000 en ligne)" },
+      { value: "+2 500", desc: "choristes objectif année 2 sur plateforme scalable (depuis 1 200 à la V1)" },
       { value: "Backlog priorisé", desc: "3 ans de briefs découpés et arbitrés pour un lancement cadré sous pression" },
     ],
     en: [
+      { value: "+2,500", desc: "year 2 target on a scalable platform (from 1,200 at V1 launch)" },
       { value: "500", desc: "pre-registrations on V1 before launch: demand validated" },
-      { value: "1,200 → 10,000", desc: "active members today, target 10,000 (4,000 in-person + 6,000 online)" },
       { value: "Prioritized backlog", desc: "3 years of briefs broken down and arbitrated for a high-pressure launch" },
     ],
   },
